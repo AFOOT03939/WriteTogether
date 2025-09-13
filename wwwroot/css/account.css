@@ -1,0 +1,144 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto";
+  font-size: 20px !important;
+  margin: 0px;
+  padding: 0px;
+  background-color: rgba(0, 0, 0, 0.315) !important;
+}
+
+.container .row .card {
+    background-color: #e67e22;
+    height: 70vh;
+    border: 1px solid black;
+    border-radius: 15px;
+    position: fixed;
+    width: 30%;
+    min-width: 400px;
+    z-index: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container .row .card h1 {
+  color: white;
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 400;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1px;
+}
+
+.toggle-account {
+  position: absolute;
+  top: 15px;
+  right: 15px; /* Reduced from 20px to 15px to prevent overflow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px; 
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(189, 25, 25, 0.8);
+  border-radius: 50%;
+  font-size: 1rem; 
+  color: rgb(189, 25, 25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.toggle-account:hover {
+  background-color: rgba(189, 25, 25, 0.1);
+  border-color: rgb(189, 25, 25);
+  transform: scale(1.1);
+}
+
+.toggle-account:active {
+  transform: scale(0.95);
+}
+
+.register-container {
+  padding: 50px;
+  height: 100%;
+}
+
+.form-container input {
+  background-color: #333333;
+  border-radius: 10px;
+  border: 1px solid black;
+  margin-bottom: 10px;
+  color: white;
+  padding-left: 10px;
+}
+
+.form-container label {
+  font-weight: 500;
+}
+
+.form-container input::placeholder {
+  color: white;
+}
+
+.redirect-register {
+  font-size: 1rem;
+}
+
+.redirect-register p {
+  margin-top: -10px;
+  margin-right: 5px;
+}
+
+.redirect-register a {
+  margin-top: -10px;
+  cursor: pointer;
+  text-decoration: underline !important;
+}
+
+#Signup-submit {
+  border-radius: 10px;
+  background-color: #333333;
+  border: 2px solid black;
+  color: #e67e22;
+  max-width: 120px;
+  padding: 1px;
+  transition: 0.2s;
+}
+
+#Signup-submit:active {
+  transform: scale(1.1);
+}
+
+@media (max-width: 576px) {
+  .container .row .card h1 {
+    font-size: 4rem;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+  .container .row .card h1 {
+    font-size: 4rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+  .container .row .card h1 {
+    font-size: 4rem;
+  }
+}
+
+@media (min-width: 993px) and (max-width: 1200px) {
+  .container .row .card h1 {
+    font-size: 4rem;
+  }
+}
+
+@media (min-width: 1201px) {
+  .container .row .card h1 {
+    font-size: 3.5rem;
+  }
+}
