@@ -5,6 +5,14 @@
       "PackagePath": "staticwebassets\\WriteTogether.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\Images\\MenuFoto.png",
+      "PackagePath": "staticwebassets\\Images\\MenuFoto.png"
+    },
+    {
+      "Id": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\css\\Category.css",
+      "PackagePath": "staticwebassets\\css\\Category.css"
+    },
+    {
       "Id": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\css\\account.css",
       "PackagePath": "staticwebassets\\css\\account.css"
     },
@@ -17,8 +25,8 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\js\\account.js",
-      "PackagePath": "staticwebassets\\js\\account.js"
+      "Id": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\js\\category.js",
+      "PackagePath": "staticwebassets\\js\\category.js"
     },
     {
       "Id": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\js\\site.js",

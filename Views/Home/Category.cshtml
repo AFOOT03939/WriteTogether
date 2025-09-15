@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "Category";
+}
+<link rel="stylesheet" href="~/css/Category.css" asp-append-version="true" />
+<!-- Category Header -->
+<section class="category-header">
+    <div class="category-info">
+        <h1 id="categoryTitle">Category</h1>
+        <p id="categoryDescription">Descubre increíbles historias de esta categoría</p>
+        <div class="category-stats">
+            <span id="storyCount">0 historias</span>
+            <span>|</span>
+            <span id="authorCount">0 autores</span>
+        </div>
+    </div>
+</section>
+
+<!-- Filter and Sort -->
+<section class="filter-section">
+    <div class="filter-controls">
+        <div class="filter-group">
+            <label>Ordenar por:</label>
+            <select id="sortBy">
+                <option value="newest">Más recientes</option>
+                <option value="oldest">Más antiguas</option>
+                <option value="rating">Mejor calificadas</option>
+                <option value="popular">Más populares</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Estado:</label>
+            <select id="statusFilter">
+                <option value="all">Todas</option>
+                <option value="completed">Completadas</option>
+                <option value="ongoing">En progreso</option>
+                <option value="paused">Pausadas</option>
+            </select>
+        </div>
+    </div>
+</section>
+
+<!-- Stories Grid -->
+<section class="stories-section">
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Cargando historias...</p>
+    </div>
+
+    <div class="stories-grid" id="storiesGrid">
+        <!-- Stories will be loaded dynamically here -->
+    </div>
+
+    <div class="no-stories" id="noStories" style="display: none;">
+        <h3>No se encontraron historias</h3>
+        <p>¡Sé el primero en crear una historia en esta categoría!</p>
+        <button class="nav-btn start-story-btn">Crear nueva historia</button>
+    </div>
+</section>
+
+<!-- Pagination -->
+<section class="pagination-section">
+    <div class="pagination" id="pagination">
+        <!-- Pagination will be generated dynamically -->
+    </div>
+</section>

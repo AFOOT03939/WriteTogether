@@ -1,14 +1,197 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="hero-content">
+        <h1 class="hero-title">WriteTogether</h1>
+        <p class="hero-subtitle">Where we collab to make incredible stories...</p>
+    </div>
+    <div class="hero-image">
+        <div class="hero-text">Where we collab to make incredible stories...</div>
+    </div>
+</section>
 
-<nav>
-    <ul>
-        <li>
-            <button id="sign-up">Sign-up</button>
-        </li>
-        <li>
-            <button id="log-in">Log-in</button>
-        </li>
-    </ul>
-</nav>
+<!-- Featured Stories Section -->
+<section class="stories-section">
+    <div class="stories-grid">
+        <div class="story-card" onclick="openStory(1)">
+            <div class="story-image">📖</div>
+            <div class="story-info">
+                <h3>Story 1</h3>
+                <div class="story-rating">★★★★★</div>
+                <div class="story-meta">
+                    <div>Author: xxxx</div>
+                    <div>Category: xxxx</div>
+                    <div>Date: xx/xx/xxxx</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-card" onclick="openStory(2)">
+            <div class="story-image">📚</div>
+            <div class="story-info">
+                <h3>Story 2</h3>
+                <div class="story-rating">★★★★☆</div>
+                <div class="story-meta">
+                    <div>Author: xxxx</div>
+                    <div>Category: xxxx</div>
+                    <div>Date: xx/xx/xxxx</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-card" onclick="openStory(3)">
+            <div class="story-image">📝</div>
+            <div class="story-info">
+                <h3>Story 3</h3>
+                <div class="story-rating">★★★★★</div>
+                <div class="story-meta">
+                    <div>Author: xxxx</div>
+                    <div>Category: xxxx</div>
+                    <div>Date: xx/xx/xxxx</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-card" onclick="openStory(4)">
+            <div class="story-image">📖</div>
+            <div class="story-info">
+                <h3>Story 4</h3>
+                <div class="story-rating">★★★☆☆</div>
+                <div class="story-meta">
+                    <div>Author: xxxx</div>
+                    <div>Category: xxxx</div>
+                    <div>Date: xx/xx/xxxx</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-card" onclick="openStory(5)">
+            <div class="story-image">📚</div>
+            <div class="story-info">
+                <h3>Story 5</h3>
+                <div class="story-rating">★★★★☆</div>
+                <div class="story-meta">
+                    <div>Author: xxxx</div>
+                    <div>Category: xxxx</div>
+                    <div>Date: xx/xx/xxxx</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-card" onclick="openStory(6)">
+            <div class="story-image">📝</div>
+            <div class="story-info">
+                <h3>Story 6</h3>
+                <div class="story-rating">★★★★★</div>
+                <div class="story-meta">
+                    <div>Author: xxxx</div>
+                    <div>Category: xxxx</div>
+                    <div>Date: xx/xx/xxxx</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-card" onclick="openStory(7)">
+            <div class="story-image">📖</div>
+            <div class="story-info">
+                <h3>Story 7</h3>
+                <div class="story-rating">★★★☆☆</div>
+                <div class="story-meta">
+                    <div>Author: xxxx</div>
+                    <div>Category: xxxx</div>
+                    <div>Date: xx/xx/xxxx</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-card" onclick="openStory(8)">
+            <div class="story-image">📚</div>
+            <div class="story-info">
+                <h3>Story 8</h3>
+                <div class="story-rating">★★★★☆</div>
+                <div class="story-meta">
+                    <div>Author: xxxx</div>
+                    <div>Category: xxxx</div>
+                    <div>Date: xx/xx/xxxx</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-card" onclick="openStory(8)">
+            <div class="story-image">📚</div>
+            <div class="story-info">
+                <h3>Story 8</h3>
+                <div class="story-rating">★★★★☆</div>
+                <div class="story-meta">
+                    <div>Author: xxxx</div>
+                    <div>Category: xxxx</div>
+                    <div>Date: xx/xx/xxxx</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-card" onclick="openStory(8)">
+            <div class="story-image">📚</div>
+            <div class="story-info">
+                <h3>Story 8</h3>
+                <div class="story-rating">★★★★☆</div>
+                <div class="story-meta">
+                    <div>Author: xxxx</div>
+                    <div>Category: xxxx</div>
+                    <div>Date: xx/xx/xxxx</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- Animated particles -->
+<div class="particle" style="left: 10%; animation-duration: 6s;"></div>
+<div class="particle" style="left: 20%; animation-duration: 8s;"></div>
+<div class="particle" style="left: 30%; animation-duration: 10s;"></div>
+<div class="particle" style="left: 40%; animation-duration: 7s;"></div>
+<div class="particle" style="left: 50%; animation-duration: 9s;"></div>
+<div class="particle" style="left: 60%; animation-duration: 11s;"></div>
+<div class="particle" style="left: 70%; animation-duration: 6.5s;"></div>
+<div class="particle" style="left: 80%; animation-duration: 8.5s;"></div>
+<div class="particle" style="left: 90%; animation-duration: 7.5s;"></div>
+
+<!-- Genres Section -->
+<section class="genres-section">
+    <h2 class="section-title">Una variedad de géneros</h2>
+    <p class="section-subtitle">Descubre historias que despertarán tu imaginación</p>
+
+    <div class="genres-container">
+        <div class="genres-grid">
+            <button class="genre-btn" onclick="window.location.href='categories/category.html?genre=fantasy'">Fantasy</button>
+            <button class="genre-btn" onclick="window.location.href='categories/category.html?genre=romance'">Romance</button>
+            <button class="genre-btn" onclick="window.location.href='categories/category.html?genre=mystery'">Mystery</button>
+            <button class="genre-btn" onclick="window.location.href='categories/category.html?genre=scifi'">Sci-Fi</button>
+            <button class="genre-btn" onclick="window.location.href='categories/category.html?genre=horror'">Horror</button>
+            <button class="genre-btn" onclick="window.location.href='categories/category.html?genre=adventure'">Adventure</button>
+            <button class="genre-btn" onclick="window.location.href='categories/category.html?genre=drama'">Drama</button>
+            <button class="genre-btn" onclick="window.location.href='categories/category.html?genre=comedy'">Comedy</button>
+            <button class="genre-btn" onclick="window.location.href='categories/category.html?genre=historical'">Historical</button>
+            <button class="genre-btn" onclick="window.location.href='categories/category.html?genre=thriller'">Thriller</button>
+        </div>
+    </div>
+</section>
+
+<!-- AI Section (Placeholder for API Integration) -->
+<section class="ai-section">
+    <div class="ai-placeholder">
+        <h2>AI-powered Writing Assistant</h2>
+        <p>Esta sección está reservada para la integración de APIs de Inteligencia Artificial que ayudarán a mejorar la experiencia de escritura colaborativa:</p>
+        <ul>
+            <li>Sugerencias de continuación de historia</li>
+            <li>Corrección de coherencia narrativa</li>
+            <li>Generación de ideas y prompts</li>
+            <li>Análisis de estilo y tono</li>
+            <li>Traducción automática</li>
+        </ul>
+        <p><em>Próximamente: Integración con OpenAI GPT, Google Gemini, o Alguna API</em></p>
+    </div>
+</section>

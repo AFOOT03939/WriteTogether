@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "LZuG+X2fQVlGb254OMhmv8Gtw5o+6li0rnRFkDg1TdY=",
+  "Hash": "FaiONSALT9KG1I0SlidgxwqG+pMcsMYZmhzjwrUKOc4=",
   "Source": "WriteTogether",
   "BasePath": "_content/WriteTogether",
   "Mode": "Default",
@@ -74,6 +74,25 @@
       "OriginalItemSpec": "wwwroot\\css\\account.css"
     },
     {
+      "Identity": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\css\\Category.css",
+      "SourceId": "WriteTogether",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\",
+      "BasePath": "_content/WriteTogether",
+      "RelativePath": "css/Category.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Category.css"
+    },
+    {
       "Identity": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\css\\site.css",
       "SourceId": "WriteTogether",
       "SourceType": "Discovered",
@@ -112,12 +131,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\js\\account.js",
+      "Identity": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\Images\\MenuFoto.png",
       "SourceId": "WriteTogether",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\",
       "BasePath": "_content/WriteTogether",
-      "RelativePath": "js/account.js",
+      "RelativePath": "Images/MenuFoto.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -128,7 +147,26 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\account.js"
+      "OriginalItemSpec": "wwwroot\\Images\\MenuFoto.png"
+    },
+    {
+      "Identity": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\js\\category.js",
+      "SourceId": "WriteTogether",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\",
+      "BasePath": "_content/WriteTogether",
+      "RelativePath": "js/category.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\category.js"
     },
     {
       "Identity": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\js\\site.js",
