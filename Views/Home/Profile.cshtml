@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewData["Title"] = "Profile";
+}
+<link rel="stylesheet" href="~/css/Profile.css" asp-append-version="true" />
+
+<div class="decoration-band"></div>
+
+<!-- Main Content -->
+<div class="profile-container">
+    <div class="profile-cards">
+        <!-- Avatar Card -->
+        <div class="profile-avatar">
+            <h3>Random User Name</h3>
+            <div class="avatar-circle">
+                <div class="avatar-icon"></div>
+            </div>
+            <button class="change-photo-btn">change photo</button>
+        </div>
+
+        <!-- Stories Card -->
+        <div class="profile-stories">
+            <h3>My stories</h3>
+            <div class="carousel-area">
+                <div class="mySlides fade">
+                    <img src="https://cdn.displate.com/artwork/270x380/2025-02-27/0957dd0d8e18b5a84d93fea4a4a78d8c_2ce9ec9342247ab8a1c75251d5b8f932.jpg" style="width:100%">
+                </div>
+
+                <div class="mySlides fade">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSl1EmQXrHNVBO6dwgnDEWDrRSt9j1L3AcitQ&s" style="width:100%">
+                </div>
+                <!-- Next and previous buttons -->
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+        </div>
+
+        <!-- Contributions Card -->
+        <div class="profile-contributions">
+            <h3>My Contributions</h3>
+            <div class="contributions-list">
+                <div class="story-card">
+                    <div class="story-title">Story Y xx/xx/xxxx</div>
+                    <div class="story-text">there was something lurking in the shadow.....</div>
+                </div>
+                <div class="story-card">
+                    <div class="story-title">Story Y xx/xx/xxxx</div>
+                    <div class="story-text">I was wondering if that little cat was now mine....</div>
+                </div>
+                <div class="story-card">
+                    <div class="story-title">Story Y xx/xx/xxxx</div>
+                    <div class="story-text">I was wondering if that little cat was now mine....</div>
+                </div>
+                <div class="story-card">
+                    <div class="story-title">Story Y xx/xx/xxxx</div>
+                    <div class="story-text">I was wondering if that little cat was now mine....</div>
+                </div>
+                <div class="story-card">
+                    <div class="story-title">Story Y xx/xx/xxxx</div>
+                    <div class="story-text">I was wondering if that little cat was now mine....</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="decoration-band"></div>
+
+
+

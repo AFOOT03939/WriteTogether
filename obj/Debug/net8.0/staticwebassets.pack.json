@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\css\\Category.css"
     },
     {
+      "Id": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\css\\Profile.css",
+      "PackagePath": "staticwebassets\\css\\Profile.css"
+    },
+    {
       "Id": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\css\\account.css",
       "PackagePath": "staticwebassets\\css\\account.css"
     },

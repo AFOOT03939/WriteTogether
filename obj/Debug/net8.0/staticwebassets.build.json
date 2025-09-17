@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FaiONSALT9KG1I0SlidgxwqG+pMcsMYZmhzjwrUKOc4=",
+  "Hash": "QhCODHCi9LsyNJDMgGUs4uBi2juaf7lCf3vOYrlGUXw=",
   "Source": "WriteTogether",
   "BasePath": "_content/WriteTogether",
   "Mode": "Default",
@@ -91,6 +91,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\Category.css"
+    },
+    {
+      "Identity": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\css\\Profile.css",
+      "SourceId": "WriteTogether",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\",
+      "BasePath": "_content/WriteTogether",
+      "RelativePath": "css/Profile.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Profile.css"
     },
     {
       "Identity": "C:\\Users\\victo\\source\\repos\\WriteTogether\\WriteTogether\\wwwroot\\css\\site.css",
