@@ -41,7 +41,7 @@
         </div>
 
         <div class="nav-buttons">
-            <a href="#create-story" class="nav-btn start-story-btn">Start a new story</a>
+            <a asp-controller="Home" asp-action="Edit" class="nav-btn start-story-btn">Start a new story</a>
             <a asp-controller="Home" asp-action="Profile" class="nav-btn start-story-btn">Profile</a>
             <a id="log-in" class="nav-btn auth-btn">Log-in</a>
             <a id="sign-up" class="nav-btn auth-btn">Sign-up</a>
@@ -53,7 +53,6 @@
         </main>
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/account.js" asp-append-version="true"></script>
     <script src="~/js/category.js" asp-append-version="true"></script>
