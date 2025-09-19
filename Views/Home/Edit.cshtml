@@ -1,0 +1,91 @@
+﻿<!--
+    TITULO: VISTA EDIT
+    AUTOR: ADRIEL HERRERA
+    FECHA DE CREACION: 16/09/2025
+
+    DESCRIPCION: La estructura de la vista se basa en un contenedor principal
+    (main_div_edit) que aloja todos los demás contenedores. Luego, este
+    contenedor se divide en otros dos: header_edit (para el titulo) y
+    body_edit (para el cuerpo en si de la historia).
+-->
+
+@{
+    ViewData["Title"] = "Edit story";
+}
+<html>
+    <head>
+        <link rel="stylesheet" href="~/css/Edit.css" />
+    </head>
+    <body>
+        <!--ESTE DIV CONTIENE TODO LO DEMAS-->
+        <div id="main_div_edit">
+            <div id="header_edit"><!--DIV PARA EL TITULO DE LA HISTORIA-->
+                <div id="title_edit">The girl that didn´t wanna eat</div>
+                <div id="header_options_edit">
+                    <div id="editbar">Status: in progress</div>
+                    <div id="head_stars" >
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                    <div class="editbarbut">Publish</div>
+                    <div class="editbarbut">Upload photo</div>
+                </div>
+            </div>
+
+            <!--DIV PARA EL CUERPO DE LA PAGINA-->
+            <div id="body_edit">
+
+                <!--DIV PARA LA INFORMACION DE LA HISTORIA-->
+                <div id="info_edit">
+                    <div id="info_text_edit">
+                    <!--<p style="font-weight: bold;">Information</p>-->
+                        <p>Author: Adriel Herrera</p>
+                        <p>Collaborators:</p>
+                        <ul>
+                            <li>Alejandra Castillo</li>
+                            <li>Alejandra Castillo</li>
+                            <li>Alejandra Castillo</li>
+                        </ul>
+                    </div>
+                    <div id="info_tags_edit">
+                        <div class="tagtitle">Tags</div>
+                        <div id="info_tags_box">
+                            <div class="info_tags">Tag1<div class="xtag">x</div></div>
+                            <div class="info_tags">Tag2<div class="xtag">x</div></div>
+                            <div class="info_tags">Tag3<div class="xtag">x</div></div>
+                        </div>
+                        <br />
+                        <div class="tagtitle">Add new tag</div>
+                        <div id="info_add_tags_edit"><div id="input_tag"><input type="text" placeholder="Type a tag..." id="add_tag" /><div class="xtag" style="font-size: 30px;">+</div></div></div>
+                        <br /><div class="tagtitle">Story rating</div>
+                        <div class="add_stars">
+                            <div class="star"></div>
+                            <div class="star"></div>
+                            <div class="star"></div>
+                            <div class="star"></div>
+                            <div class="star"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!--ESTE DIV ES EL ESPACIO DE EDICION DONDE SE ESCRIBE LA HISTORIA-->
+                <div id="text_edit">
+                    <div id="notebook_edit"></div>
+                    <div id="type_edit">
+                        <textarea id="input_story" placeholder="Type something..."></textarea>
+                        <div id="buttons_ia_edit">
+                            <div class="buttons_ia">Submit</div>
+                            <div class="buttons_ia">AI correction</div>
+                            <div class="buttons_ia">Correct all story</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

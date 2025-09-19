@@ -15,7 +15,7 @@
 <!-- Featured Stories Section -->
 <section class="stories-section">
     <div class="stories-grid">
-        <div class="story-card" onclick="openStory(1)">
+        <div class="story-card" onclick="openEdit()">
             <div class="story-image">📖</div>
             <div class="story-info">
                 <h3>Story 1</h3>
@@ -195,3 +195,10 @@
         <p><em>Próximamente: Integración con OpenAI GPT, Google Gemini, o Alguna API</em></p>
     </div>
 </section>
+
+<script>
+    function openEdit() {
+        var url = '@Url.Action("Edit", "Home")';
+        window.location.href = url;
+    }
+</script>
