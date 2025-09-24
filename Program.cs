@@ -1,7 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using WriteTogether.Models.DB;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication("MyCookies") 
+    .AddCookie("MyCookies", options =>
+    {
+        options.LoginPath = "/Home/Index";
+        options.AccessDeniedPath = "/Home/Index";
+    });
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<WriteTogetherContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
@@ -18,6 +30,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

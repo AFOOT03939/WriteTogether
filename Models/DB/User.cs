@@ -9,9 +9,11 @@ public partial class User
 
     public string NameUs { get; set; } = null!;
 
-    public string EmailUs { get; set; } = null!;
+    public string? EmailUs { get; set; }
 
-    public DateTime DateUs { get; set; }
+    public string? PasswordUs { get; set; }
+
+    public DateTime DateUs { get; set; } = DateTime.Now;
 
     public string? AvatarUs { get; set; }
 

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WriteTogether.Models.DB.User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NameUs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailUs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateUs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AvatarUs)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameUs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailUs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateUs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AvatarUs)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdUs">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdUs">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdUs">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

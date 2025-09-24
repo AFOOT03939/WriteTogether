@@ -42,11 +42,11 @@ signup.addEventListener("click", () => {
                         <button class="toggle-account">x</button>
                         <h1>Sign-Up</h1>
                         <div class="form-container">
-                            <form action="/Sign-up" method="Post" class="form">
+                            <form id="signup-form" class="form">
                                 <label>Name</label>
                                 <input name="Name" type="text" placeholder="User...">
                                 <label>E-mail</label>
-                                <input name="e-mail" type="email" placeholder="user@domain.com">
+                                <input name="email" type="email" placeholder="user@domain.com">
                                 <label>Password</label>
                                 <input name="password" type="password" placeholder="********">
                                 <div class="redirect-register">
@@ -66,6 +66,38 @@ signup.addEventListener("click", () => {
     closeBtn.addEventListener("click", () => {
         section.remove()
     })
+
+    let signupBtn = document.getElementById("signup-form");
+    signupBtn.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        let formData = new FormData(this);
+        let data = Object.fromEntries(formData.entries());
+        const userData = {
+            NameUs: data.Name,
+            EmailUs: data.email,
+            PasswordUs: data.password,
+            DateUs: new Date().toISOString()
+        }
+
+        try {
+            const response = await fetch("/Users/Create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData)
+            });
+
+            const result = await response.json();
+            alert(result.message);
+            section.remove();
+
+        } catch (err) {
+            console.error(err);
+        }
+
+    });
 })
 
 login.addEventListener("click", () => {
@@ -78,7 +110,7 @@ login.addEventListener("click", () => {
                         <button class="toggle-account">x</button>
                         <h1>Log-in</h1>
                         <div class="form-container">
-                            <form action="/Log-in" method="Post" class="form">
+                            <form id="login-form" class="form">
                                 <label>Name</label>
                                 <input name="name" type="text" placeholder="User...">
                                 <label>Password</label>
@@ -95,10 +127,39 @@ login.addEventListener("click", () => {
         </div>
     `
     body.appendChild(section)
-    
+
     const closeBtn = section.querySelector(".toggle-account")
     closeBtn.addEventListener("click", () => {
         section.remove()
+    })
+
+    let LoginBtn = document.getElementById("login-form");
+    LoginBtn.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        let formData = new FormData(this);
+        let data = Object.fromEntries(formData.entries());
+        const userData = {
+            NameUs: data.name,
+            PasswordUs: data.password,
+        }
+
+        try {
+            const response = await fetch("/Users/Login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData)
+            });
+
+            const result = await response.json();
+            alert(result.message);
+            section.remove();
+
+        } catch (err) {
+            console.error(err);
+        }
     })
 })
 
