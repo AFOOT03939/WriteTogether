@@ -1,7 +1,8 @@
-﻿const signup = document.getElementById("sign-up")
-const login = document.getElementById("log-in")
-const closeBtn = document.getElementsByClassName("toggle-account")
-const body = document.body
+﻿const signup = document.getElementById("sign-up");
+const login = document.getElementById("log-in");
+const closeBtn = document.getElementsByClassName("toggle-account");
+const body = document.body;
+
 
 const section = document.createElement("section")
 section.innerHTML = `
@@ -92,6 +93,7 @@ signup.addEventListener("click", () => {
             const result = await response.json();
             alert(result.message);
             section.remove();
+            window.location.reload()
 
         } catch (err) {
             console.error(err);
@@ -156,6 +158,7 @@ login.addEventListener("click", () => {
             const result = await response.json();
             alert(result.message);
             section.remove();
+            window.location.reload()
 
         } catch (err) {
             console.error(err);

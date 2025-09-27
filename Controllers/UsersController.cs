@@ -60,5 +60,12 @@ namespace WriteTogether.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync("MyCookies");
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
