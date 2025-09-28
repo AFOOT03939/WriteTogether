@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WriteTogether.Models.DB;
+using Microsoft.AspNetCore.Authorization;
+using WriteTogether.Models;
 
 namespace WriteTogether.Controllers
 {
@@ -66,6 +68,37 @@ namespace WriteTogether.Controllers
         {
             await HttpContext.SignOutAsync("MyCookies");
             return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> getUserInfo()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var intUserId = int.Parse(userId);
+            var userName = await _context.Users.Where(u => u.IdUs == intUserId)
+                                                .Select(u => u.NameUs)
+                                                .ToListAsync();
+            return Ok(userName);
+        }
+
+
+        [Authorize]
+        [HttpGet]
+        public async Task<IActionResult> getFragments()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var intUserId = int.Parse(userId);
+            var fragments = await _context.Fragments.Include(f => f.StoryFrNavigation)
+                                                .Where(f => f.AutorFr == intUserId)
+                                                .Select(f => new FragmentsAndStory
+                                                {
+                                                    content_Fr = f.ContentFr,
+                                                    IdSt = f.StoryFrNavigation.IdSt,
+                                                    TitleSt = f.StoryFrNavigation.TitleSt,
+                                                    dateFr = f.DateUs
+                                                }).ToListAsync();
+            return Ok(fragments);
         }
     }
 }

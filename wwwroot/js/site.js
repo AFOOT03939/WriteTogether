@@ -3,7 +3,7 @@ const login = document.getElementById("log-in");
 const closeBtn = document.getElementsByClassName("toggle-account");
 const body = document.body;
 
-
+// This generates the pop-up
 const section = document.createElement("section")
 section.innerHTML = `
         <div class="modal-container">
@@ -19,7 +19,7 @@ section.innerHTML = `
     `
 body.appendChild(section);
 const closeBtns = section.querySelectorAll(".toggle-account")
-
+// Button for erasing the pop-up
 closeBtns.forEach(btn => {
     btn.addEventListener("click", () => {
         section.remove()
@@ -32,6 +32,8 @@ signupopup.addEventListener("click", () => {
     section.remove();
     signup.click();
 })
+
+// Signup procedure
 
 signup.addEventListener("click", () => {
     const section = document.createElement("section")
@@ -68,6 +70,8 @@ signup.addEventListener("click", () => {
         section.remove()
     })
 
+    // Request to the backend
+
     let signupBtn = document.getElementById("signup-form");
     signupBtn.addEventListener("submit", async function (e) {
         e.preventDefault();
@@ -102,6 +106,8 @@ signup.addEventListener("click", () => {
     });
 })
 
+// login procedure
+
 login.addEventListener("click", () => {
     const section = document.createElement("section")
     section.innerHTML = `
@@ -135,6 +141,8 @@ login.addEventListener("click", () => {
         section.remove()
     })
 
+    // login request
+
     let LoginBtn = document.getElementById("login-form");
     LoginBtn.addEventListener("submit", async function (e) {
         e.preventDefault();
@@ -166,17 +174,3 @@ login.addEventListener("click", () => {
     })
 })
 
-let slideIndex = 0;
-showSlides();
-
-function showSlides() {
-    let i;
-    let slides = document.getElementsByClassName("mySlides");
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-    slideIndex++;
-    if (slideIndex > slides.length) { slideIndex = 1 }
-    slides[slideIndex - 1].style.display = "block";
-    setTimeout(showSlides, 2000); // Change image every 2 seconds
-}

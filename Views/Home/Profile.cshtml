@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Profile";
 }
 <link rel="stylesheet" href="~/css/Profile.css" asp-append-version="true" />
@@ -11,7 +10,7 @@
     <div class="profile-cards">
         <!-- Avatar Card -->
         <div class="profile-avatar">
-            <h3>Random User Name</h3>
+            <h3 class="name-avatar"></h3>
             <div class="avatar-circle">
                 <div class="avatar-icon"></div>
             </div>
@@ -39,31 +38,11 @@
         <!-- Contributions Card -->
         <div class="profile-contributions">
             <h3>My Contributions</h3>
-            <div class="contributions-list">
-                <div class="story-card">
-                    <div class="story-title">Story Y xx/xx/xxxx</div>
-                    <div class="story-text">there was something lurking in the shadow.....</div>
-                </div>
-                <div class="story-card">
-                    <div class="story-title">Story Y xx/xx/xxxx</div>
-                    <div class="story-text">I was wondering if that little cat was now mine....</div>
-                </div>
-                <div class="story-card">
-                    <div class="story-title">Story Y xx/xx/xxxx</div>
-                    <div class="story-text">I was wondering if that little cat was now mine....</div>
-                </div>
-                <div class="story-card">
-                    <div class="story-title">Story Y xx/xx/xxxx</div>
-                    <div class="story-text">I was wondering if that little cat was now mine....</div>
-                </div>
-                <div class="story-card">
-                    <div class="story-title">Story Y xx/xx/xxxx</div>
-                    <div class="story-text">I was wondering if that little cat was now mine....</div>
-                </div>
+            <div id="contribuitons-list-selector" class="contributions-list">
             </div>
         </div>
     </div>
 </div>
 <div class="decoration-band"></div>
-
+<script src="~/js/Slides.js"></script>
 

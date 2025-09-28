@@ -41,6 +41,7 @@
         </div>
 
         <div class="nav-buttons">
+            <p class="name-avatar"></p>
             <a asp-controller="Home" asp-action="Edit" class="nav-btn start-story-btn">Start a new story</a>
             <a asp-controller="Home" asp-action="Profile" class="nav-btn start-story-btn">Profile</a>
             @if (User.Identity.IsAuthenticated)
@@ -61,9 +62,9 @@
     </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/account.js" asp-append-version="true"></script>
     <script src="~/js/Logout.js" asp-append-version="true"></script>
     <script src="~/js/category.js" asp-append-version="true"></script>
+    <script src="~/js/Profile.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
