@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category - WriteTogether</title>
+    <link rel="stylesheet" href="category.css">
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <header class="header">
+       <div class="logo">
+           <div class="logo-icon">W</div>
+            <div class="dropdown">
+             <span class="dropdown-toggle">Stories (categories)+</span>
+             <div class="dropdown-menu" id="categories-dropdown-category">
+            <!-- Las categorías se cargarán dinámicamente -->
+            <a href="#" class="dropdown-item">Cargando categorías...</a>
+             </div>
+            </div>
+        </div>
+        
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="Buscar en esta categoría..." id="searchBar">
+        </div>
+        
+        <div class="nav-buttons">
+            <a href="../MenuPrincipal.html" class="nav-btn">← Inicio</a>
+            <a href="#create-story" class="nav-btn start-story-btn">Start a new story</a>
+            <a href="#login" class="nav-btn auth-btn">Log-in</a>
+            <a href="#signup" class="nav-btn auth-btn">Sign-up</a>
+        </div>
+    </header>
+
+    <!-- Category Header -->
+    <section class="category-header">
+        <div class="category-info">
+            <h1 id="categoryTitle">Category</h1>
+            <p id="categoryDescription">Descubre increíbles historias de esta categoría</p>
+            <div class="category-stats">
+                <span id="storyCount">0 historias</span>
+                <span>|</span>
+                <span id="authorCount">0 autores</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter and Sort -->
+    <section class="filter-section">
+        <div class="filter-controls">
+            <div class="filter-group">
+                <label>Ordenar por:</label>
+                <select id="sortBy">
+                    <option value="newest">Más recientes</option>
+                    <option value="oldest">Más antiguas</option>
+                    <option value="rating">Mejor calificadas</option>
+                    <option value="popular">Más populares</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Estado:</label>
+                <select id="statusFilter">
+                    <option value="all">Todas</option>
+                    <option value="completed">Completadas</option>
+                    <option value="ongoing">En progreso</option>
+                    <option value="paused">Pausadas</option>
+                </select>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stories Grid -->
+    <section class="stories-section">
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Cargando historias...</p>
+        </div>
+        
+        <div class="stories-grid" id="storiesGrid">
+            <!-- Stories will be loaded dynamically here -->
+        </div>
+        
+        <div class="no-stories" id="noStories" style="display: none;">
+            <h3>No se encontraron historias</h3>
+            <p>¡Sé el primero en crear una historia en esta categoría!</p>
+            <button class="nav-btn start-story-btn">Crear nueva historia</button>
+        </div>
+    </section>
+
+    <!-- Pagination -->
+    <section class="pagination-section">
+        <div class="pagination" id="pagination">
+            <!-- Pagination will be generated dynamically -->
+        </div>
+    </section>
+
+    <script src="category.js"></script>
+</body>
+</html>
