@@ -15,15 +15,15 @@ public partial class WriteTogetherContext : DbContext
     {
     }
 
-    public virtual DbSet<Category> Categories { get; set; }
+    public virtual DbSet<Category> Categories { get; set; } = null!;
 
-    public virtual DbSet<Fragment> Fragments { get; set; }
+    public virtual DbSet<Fragment> Fragments { get; set; } = null!;
 
-    public virtual DbSet<Story> Stories { get; set; }
+    public virtual DbSet<Story> Stories { get; set; } = null!;
 
-    public virtual DbSet<Tag> Tags { get; set; }
+    public virtual DbSet<Tag> Tags { get; set; } = null!;
 
-    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<User> Users { get; set; } = null!;
 
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
