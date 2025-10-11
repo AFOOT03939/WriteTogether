@@ -2,6 +2,24 @@
 const login = document.getElementById("log-in");
 const closeBtn = document.getElementsByClassName("toggle-account");
 const body = document.body;
+const dropDown = document.getElementById("dropdown");
+
+async function showCategories() {
+    const response = await fetch("/Categories/getCategories");
+    const categories = await response.json();
+        dropDown.innerHTML += `
+         <a href="/Home/Category/Fantasy">${categories[0]}</a></br>
+         <a href="/Home/Category/Romance">${categories[1]}</a></br>
+         <a href="/Home/Category/Mistery">${categories[2]}</a></br>
+         <a href="/Home/Category/Scifi">${categories[3]}</a></br>
+         <a href="/Home/Category/Horror">${categories[4]}</a></br>
+         <a href="/Home/Category/Adventure">${categories[5]}</a></br>
+         <a href="/Home/Category/Drama">${categories[6]}</a></br>
+         <a href="/Home/Category/Comedy">${categories[7]}</a></br>
+         <a href="/Home/Category/Historical">${categories[8]}</a></br>
+         <a href="/Home/Category/Thriller">${categories[9]}</a>
+    `;
+}
 
 // This generates the pop-up
 const section = document.createElement("section")
@@ -174,3 +192,4 @@ login.addEventListener("click", () => {
     })
 })
 
+showCategories();
