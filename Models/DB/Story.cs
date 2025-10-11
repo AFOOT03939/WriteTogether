@@ -19,6 +19,8 @@ public partial class Story
 
     public string? PosterSt { get; set; }
 
+    public bool StateSt { get; set; }
+
     public virtual User AutorStNavigation { get; set; } = null!;
 
     public virtual Category CategoryStNavigation { get; set; } = null!;

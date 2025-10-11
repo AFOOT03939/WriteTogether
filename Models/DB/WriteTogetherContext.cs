@@ -93,6 +93,12 @@ public partial class WriteTogetherContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("title_st");
 
+            entity.Property(e => e.StateSt)       
+                .HasColumnName("state_st")
+                .HasColumnType("bit")               
+                .HasDefaultValue(false)               
+                .IsRequired();
+
             entity.HasOne(d => d.AutorStNavigation).WithMany(p => p.Stories)
                 .HasForeignKey(d => d.AutorSt)
                 .OnDelete(DeleteBehavior.ClientSetNull)
