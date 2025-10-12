@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WriteTogether.Models;
 using WriteTogether.Models.DB;
 
 namespace WriteTogether.Controllers
@@ -19,9 +20,27 @@ namespace WriteTogether.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> getStory()
+        public async Task<IActionResult> getFullStory()
         {
             var writeTogetherContext = await _context.Stories.Include(s => s.AutorStNavigation).Include(s => s.CategoryStNavigation).ToListAsync();
+            return Ok(writeTogetherContext);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> getStory()
+        {
+            var writeTogetherContext = await _context.Stories.Include(s => s.AutorStNavigation).Include(s => s.CategoryStNavigation)
+                .Select(s => new StoryCategory 
+                {
+                    IdSt = s.IdSt,
+                    TitleSt = s.TitleSt,
+                    PosterSt = s.PosterSt,
+                    RateSt = s.RateSt,
+                    AutorSt = s.AutorStNavigation.IdUs,
+                    CategorySt = s.CategoryStNavigation.IdCat,
+                    StateSt = s.StateSt
+                })
+        .ToListAsync();
             return Ok(writeTogetherContext);
         }
 
