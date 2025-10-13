@@ -9,6 +9,7 @@ namespace WriteTogether.Models
         public string TitleSt { get; set; } = null!;
 
         public int AutorSt { get; set; }
+        public string AutorNameSt { get; set; } = null!;
 
         public int CategorySt { get; set; }
 

@@ -1,5 +1,6 @@
 console.log(window.location.pathname);
 const storyGrid = document.getElementById("storiesGrid");
+let filteredStory;
 async function urldetection() {
     const response = await fetch("/Stories/getStory");
     if (!response.ok) {
@@ -10,7 +11,7 @@ async function urldetection() {
     let url = window.location.pathname;
     switch (url) {
         case "/Home/Category/Fantasy":
-            let filteredStory = storyFilter(story, 1);
+            filteredStory = storyFilter(story, 1);
             filteredStory.forEach(filtered => {
                 let card = createStory(filtered);
                 storyGrid.innerHTML += card;
@@ -18,39 +19,66 @@ async function urldetection() {
             break;
         case "/Home/Category/Romance":
             filteredStory = storyFilter(story, 2);
-            createStory(filteredStory);
+            filteredStory.forEach(filtered => {
+                let card = createStory(filtered);
+                storyGrid.innerHTML += card;
+            })
             break;
         case "/Home/Category/Mistery":
             filteredStory = storyFilter(story, 3);
-            createStory(filteredStory);
+            filteredStory.forEach(filtered => {
+                let card = createStory(filtered);
+                storyGrid.innerHTML += card;
+            })
             break;
         case "/Home/Category/Scifi":
             filteredStory = storyFilter(story, 4);
-            createStory(filteredStory);
+            filteredStory.forEach(filtered => {
+                let card = createStory(filtered);
+                storyGrid.innerHTML += card;
+            })
             break;
         case "/Home/Category/Horror":
             filteredStory = storyFilter(story, 5);
-            createStory(filteredStory);
+            filteredStory.forEach(filtered => {
+                let card = createStory(filtered);
+                storyGrid.innerHTML += card;
+            })
             break;
         case "/Home/Category/Adventure":
             filteredStory = storyFilter(story, 6);
-            createStory(filteredStory);
+            filteredStory.forEach(filtered => {
+                let card = createStory(filtered);
+                storyGrid.innerHTML += card;
+            })
             break;
         case "/Home/Category/Drama":
             filteredStory = storyFilter(story, 7);
-            createStory(filteredStory);
+            filteredStory.forEach(filtered => {
+                let card = createStory(filtered);
+                storyGrid.innerHTML += card;
+            })
             break;
         case "/Home/Category/Comedy":
             filteredStory = storyFilter(story, 8);
-            createStory(filteredStory);
+            filteredStory.forEach(filtered => {
+                let card = createStory(filtered);
+                storyGrid.innerHTML += card;
+            })
             break;
         case "/Home/Category/Historical":
             filteredStory = storyFilter(story, 9);
-            createStory(filteredStory);
+            filteredStory.forEach(filtered => {
+                let card = createStory(filtered);
+                storyGrid.innerHTML += card;
+            })
             break;
         case "/Home/Category/Thriller":
             filteredStory = storyFilter(story, 10);
-            createStory(filteredStory);
+            filteredStory.forEach(filtered => {
+                let card = createStory(filtered);
+                storyGrid.innerHTML += card;
+            })
             break;
     }
 }
@@ -63,11 +91,7 @@ function storyFilter(story, number) {
 function createStory(filteredStory) {
     console.log(filteredStory);
     const statusClass = `status-${filteredStory.StateSt}`;
-    const statusText = {
-        completed: 'Completada',
-        ongoing: 'En progreso',
-        paused: 'Pausada'
-    };
+    console.log(filteredStory.stateSt)
 
     const stars = '★'.repeat(filteredStory.rateSt) + '☆'.repeat(5 - filteredStory.rateSt);
 
@@ -78,12 +102,38 @@ function createStory(filteredStory) {
                     <h3>${filteredStory.titleSt}</h3>
                     <div class="story-rating">${stars}</div>
                     <div class="story-meta">
-                        <div><strong>Autor:</strong> ${filteredStory.autorSt}</div>
+                        <div><strong>Autor:</strong> ${filteredStory.autorNameSt}</div>
                     </div>
-                    <div class="story-status ${statusClass}">${statusText[filteredStory.stateSt]}</div>
+                    <div class="story-status ${statusClass}">
+                        ${filteredStory.stateSt ? "Finished" : "In progress"}
+                    </div>
                 </div>
             </div>
         `;
 }
+
+const sort = document.getElementById("sortBy");
+
+sort.addEventListener("change", function () {
+    let sorted = [...filteredStory]; 
+
+    switch (sort.value) {
+        case "0":
+            sorted = sorted.filter(s => !s.stateSt);
+            break;
+        case "1":
+            sorted = sorted.filter(s => s.stateSt);
+            break;
+        case "4":
+            sorted.sort((a, b) => b.rateSt - a.rateSt);
+            break;
+    }
+
+    storyGrid.innerHTML = "";
+    sorted.forEach(st => {
+        let card = createStory(st);
+        storyGrid.innerHTML += card;
+    });
+});
 
 urldetection();

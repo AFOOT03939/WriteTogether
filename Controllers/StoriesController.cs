@@ -37,6 +37,7 @@ namespace WriteTogether.Controllers
                     PosterSt = s.PosterSt,
                     RateSt = s.RateSt,
                     AutorSt = s.AutorStNavigation.IdUs,
+                    AutorNameSt = s.AutorStNavigation.NameUs,
                     CategorySt = s.CategoryStNavigation.IdCat,
                     StateSt = s.StateSt
                 })
