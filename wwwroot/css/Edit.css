@@ -11,26 +11,27 @@
 
 */
 
-html{
+html {
     padding: 0px;
+    font-size: 15px;
 }
 
 #main_div_edit {
     width: 100%;
-    height: 818px;
+    height: fit-content;
     display: flex;
     margin: auto;
     padding: 20px;
     flex-direction: column;
     gap: 20px;
     background: #333333;
-    min-height: fit-content;
+    min-height: 512px;
 }
 
 #header_edit {
     flex: 1;
     background: #9D622E;
-    min-height: 100px;
+    min-height: 75px;
     display: flex;
     flex-direction: column;
 }
@@ -38,10 +39,10 @@ html{
 #title_edit {
     flex: 2;
     font-weight: bold;
-    font-size: 50px;
+    font-size: 30px;
     align-items: center;
     display: flex;
-    padding: 0 20px 0 20px;
+    padding: 10px;
     overflow-x:hidden;
     white-space: nowrap;
     min-height: fit-content;
@@ -67,17 +68,18 @@ html{
 #info_edit {
     background: #9D622E;
     flex: 1;
-    min-width: 250px;
+    min-width: 150px;
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 20px;
+    padding: 10px;
 }
 
 #info_text_edit {
     width: 100%;
     max-height: fit-content;
     flex: 3;
+    font-size: 15px;
 }
 
 #info_tags_edit {
@@ -97,26 +99,27 @@ html{
 .info_tags{
     background: gray;
     min-width: fit-content;
-    height: 40px;
-    font-size: 20px;
+    height: 30px;
+    font-size: 15px;
     justify-content: space-between;
     align-items: center;
     display: flex;
-    flex-basis: 80px;
+    flex-basis: 60px;
     border-radius: 8px;
     padding: 0 2px 0 10px;
 }
 
 .xtag {
     border-radius: 100%;
-    min-width: 30px;
-    min-height: 30px;
+    min-width: 20px;
+    min-height: 20px;
     justify-content: center;
     align-items: center;
     display: flex;
     user-select: none;
     font-weight: bold;
-    margin: 0 0 0 10px;
+    margin: 0 0 0 8px;
+    cursor: pointer;/*MOD 1*/
 }
 
 #info_tags_box {
@@ -126,25 +129,32 @@ html{
     flex-wrap: wrap;
     flex: 3;
     max-height: fit-content;
-    gap: 20px;
+    gap: 10px;
 }
 
 .tagtitle {
     width: 100%;
+    font-size: 15px;
 }
 
 #text_edit {
-    flex: 3;
+    flex: 1 1 3;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    min-width: 250px;
+    width: 850px;
+    max-width: 850px;
+    margin: auto;
 }
 
-#add_tag{
-    margin: 20px;
+
+#add_tag {
+    margin: 15px;
     width: 70%;
-    height: 30px;
-    font-size: 20px;
+    height: 20px;
+    font-size: 12px;
+    
 }
 
 #input_tag{
@@ -154,10 +164,18 @@ html{
 }
 
 #notebook_edit {
-    flex: 3;
+    flex: none;
     background-color: white;
-    width: 100%;
+    display: flex;
+    height: 200px;
     border-radius: 20px;
+    padding: 10px;
+    overflow-y: auto;
+    width: 100%;
+    flex-direction: column;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 #type_edit {
@@ -169,11 +187,11 @@ html{
 
 #input_story {
     flex-basis: 70%;
-    height: 100%;
+    height: 125px;
     background-color: white;
     border: none;
     vertical-align: top;
-    font-size: 20px;
+    font-size: 15px;
     font-family: Arial, sans-serif;
     padding: 10px;
 }
@@ -188,6 +206,7 @@ html{
     justify-content: center;
     min-width: fit-content;
     padding: 5px;
+    font-size: 15px;
 }
 
 .buttons_ia {
@@ -202,6 +221,7 @@ html{
     justify-content: center;
     align-items: center;
     min-width: 160px;
+    cursor: pointer; /*MOD 1*/
 }
 
 .add_stars{
@@ -209,13 +229,23 @@ html{
     height: fit-content;
     display: flex;
     flex-wrap: nowrap;
-    gap: 20px;
+    gap: 10px;
     justify-content: center;
     align-items: center;
 }
 
 .star {
-    flex: 0 1 50px;
+    flex: 0 1 30px;
+    aspect-ratio: 1 / 1;
+    background: url(../Images/star.png);
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    cursor: pointer; /*MOD 1*/
+}
+
+.star2 {
+    flex: 0 1 30px;
     aspect-ratio: 1 / 1;
     background: url(../Images/star.png);
     background-size: cover;
@@ -235,7 +265,7 @@ html{
 
 #editbar {
     flex: 5;
-    font-size: 25px;
+    font-size: 15px;
     text-align: center;
     align-items: center;
     display: flex;
@@ -255,5 +285,55 @@ html{
     align-items: center;
     min-width: fit-content;
     flex: 1;
+    font-size: 15px;
+    cursor: pointer; /*MOD 1*/
+}
+
+/*
+    TITULO DE LA MODIFICACION: CONTENEDORES PARA LA EDICION DE LA HISTORIA (CSS)
+    NUMERO DE MODIFICACION: 1
+    AUTOR: ADRIEL HERRERA
+    FECHA DE CREACION: 12/10/2025
+
+    DESCRIPCION: Esta nueva actualizacion se va a centrar en crear las clases
+    para la instancia de divs, como cuando alguien va a escribir una nueva parte
+    de la historia o va agregar una nueva etiqueta.
+
+*/
+
+.history_fragment {
+    color: black;
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    border-left: solid 4px black;
+    flex: 1;
+    max-height: fit-content;
+}
+
+.frag_user {
+    width: fit-content;
+    height: fit-content;
+    font-size: 12px;
+    margin-left: 4px;
+    font-weight: bold;
+}
+
+.frag_text {
+    flex: none;
+    height: fit-content;
+    border-radius: 2px;
+    margin-top: 4px;
+    padding: 10px;
+    font-size: 15px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
+    text-align: justify;
+}
+
+p{
     font-size: 15px;
 }
