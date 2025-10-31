@@ -24,11 +24,11 @@
                 <div id="header_options_edit">
                     <div id="editbar">Status: in progress</div>
                     <div id="head_stars" >
-                        <div class="star"></div>
-                        <div class="star"></div>
-                        <div class="star"></div>
-                        <div class="star"></div>
-                        <div class="star"></div>
+                        <div class="star2"></div>
+                        <div class="star2"></div>
+                        <div class="star2"></div>
+                        <div class="star2"></div>
+                        <div class="star2"></div>
                     </div>
                     <div class="editbarbut">Publish</div>
                     <div class="editbarbut">Upload photo</div>
@@ -46,21 +46,20 @@
                         <p>Collaborators:</p>
                         <ul>
                             <li>Alejandra Castillo</li>
-                            <li>Alejandra Castillo</li>
-                            <li>Alejandra Castillo</li>
                         </ul>
                     </div>
                     <div id="info_tags_edit">
                         <div class="tagtitle">Tags</div>
                         <div id="info_tags_box">
+                            <!--MOD 1
                             <div class="info_tags">Tag1<div class="xtag">x</div></div>
                             <div class="info_tags">Tag2<div class="xtag">x</div></div>
                             <div class="info_tags">Tag3<div class="xtag">x</div></div>
+                        -->
                         </div>
-                        <br />
                         <div class="tagtitle">Add new tag</div>
-                        <div id="info_add_tags_edit"><div id="input_tag"><input type="text" placeholder="Type a tag..." id="add_tag" /><div class="xtag" style="font-size: 30px;">+</div></div></div>
-                        <br /><div class="tagtitle">Story rating</div>
+                    <div id="info_add_tags_edit"><div id="input_tag"><input type="text" placeholder="Type a tag..." id="add_tag" /><div class="xtag" style="font-size: 30px;" onclick="addTag()">+</div></div></div>
+                        <div class="tagtitle">Story rating</div>
                         <div class="add_stars">
                             <div class="star"></div>
                             <div class="star"></div>
@@ -74,11 +73,17 @@
 
                 <!--ESTE DIV ES EL ESPACIO DE EDICION DONDE SE ESCRIBE LA HISTORIA-->
                 <div id="text_edit">
-                    <div id="notebook_edit"></div>
+                    <div id="notebook_edit">
+                        <div class="history_fragment">
+                            <div class="frag_user">Nombre del autor</div>
+                            <div class="frag_text">Esta es una parte de la historia</div>
+                        </div>
+
+                    </div>
                     <div id="type_edit">
                         <textarea id="input_story" placeholder="Type something..."></textarea>
                         <div id="buttons_ia_edit">
-                            <div class="buttons_ia">Submit</div>
+                            <div class="buttons_ia" onclick="addFrag()">Submit</div>
                             <div class="buttons_ia">AI correction</div>
                             <div class="buttons_ia">Correct all story</div>
                         </div>
@@ -89,3 +94,23 @@
     </body>
 
 </html>
+
+<!--
+    TITULO DE LA MODIFICACION: CONTENEDORES PARA LA EDICION DE LA HISTORIA (HTML)
+    NUMERO DE MODIFICACION: 1
+    AUTOR: ADRIEL HERRERA
+    FECHA DE CREACION: 12/10/2025
+
+    DESCRIPCION: Esta nueva actualizacion se va a centrar en crear las clases
+    para la instancia de divs, como cuando alguien va a escribir una nueva parte
+    de la historia o va agregar una nueva etiqueta.
+
+    |
+    |
+    |
+    |
+    V
+
+-->
+
+<script src="~/js/Edit.js" asp-append-version="true"></script>
