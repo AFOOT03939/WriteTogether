@@ -1,4 +1,8 @@
-﻿const signup = document.getElementById("sign-up");
+﻿document.addEventListener("DOMContentLoaded", () => {
+    showCategories();
+});
+
+const signup = document.getElementById("sign-up");
 const login = document.getElementById("log-in");
 const closeBtn = document.getElementsByClassName("toggle-account");
 const body = document.body;
@@ -159,7 +163,8 @@ login.addEventListener("click", () => {
 
     const closeBtn = section.querySelector(".toggle-account")
     closeBtn.addEventListener("click", () => {
-        section.remove()
+        section.remove();
+        showCategories();
     })
 
     // login request
@@ -187,7 +192,7 @@ login.addEventListener("click", () => {
             const result = await response.json();
             alert(result.message);
             section.remove();
-            window.location.reload()
+            showCategories();
 
         } catch (err) {
             console.error(err);
@@ -196,3 +201,4 @@ login.addEventListener("click", () => {
 })
 
 showCategories();
+

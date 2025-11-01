@@ -96,18 +96,19 @@ function createStory(filteredStory) {
     const stars = '★'.repeat(filteredStory.rateSt) + '☆'.repeat(5 - filteredStory.rateSt);
 
     return `
-            <div class="story-card" data-story-id="${filteredStory.idSt}">
-                <div class="story-image">📚</div>
-                <div class="story-info">
-                    <h3>${filteredStory.titleSt}</h3>
-                    <div class="story-rating">${stars}</div>
-                    <div class="story-meta">
-                        <div><strong>Autor:</strong> ${filteredStory.autorNameSt}</div>
-                    </div>
-                    <div class="story-status ${statusClass}">
-                        ${filteredStory.stateSt ? "Finished" : "In progress"}
-                    </div>
-                </div>
+            <div class="story-card" data-story-id="${filteredStory.idSt}"
+               onclick="window.location.href='/Home/Edit?id=${filteredStory.idSt}'">
+              <div class="story-image">📚</div>
+              <div class="story-info">
+                  <h3>${filteredStory.titleSt}</h3>
+                  <div class="story-rating">${stars}</div>
+                  <div class="story-meta">
+                      <div><strong>Autor:</strong> ${filteredStory.autorNameSt}</div>
+                  </div>
+                  <div class="story-status ${statusClass}">
+                      ${filteredStory.stateSt ? "Finished" : "In progress"}
+                  </div>
+              </div>
             </div>
         `;
 }

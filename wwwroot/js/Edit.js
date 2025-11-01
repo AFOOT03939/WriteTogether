@@ -47,7 +47,7 @@ function deleteTag(xid) {
     numberTags -= 1;
 }
 
-function addFrag() {
+async function addFrag() {
     //IDENTIFICACION Y SELECCION DE DIVS
     const padre = document.getElementById("notebook_edit");
     const nuevo_frag = document.createElement("div");
@@ -73,6 +73,28 @@ function addFrag() {
         /*nueva_x.onclick = function () {
             deleteTag(nueva_x.id);
         };*/
+        const params = new URLSearchParams(window.location.search);
+
+        let data = {
+            ContentFr: input_texto.value,
+            DateUs: new Date().toISOString(),
+            StoryFr: parseInt(params.get("id"))
+        }
+        try {
+            const response = await fetch("/Fragments/postFragments", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+
+            })
+            const result = await response.json();
+            console.log(result.message);
+        } catch (error) {
+            console.error(error)
+        }
+
         padre.appendChild(nuevo_frag);
         nuevo_frag.appendChild(nuevo_user);
         nuevo_frag.appendChild(nuevo_texto);
