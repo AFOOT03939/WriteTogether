@@ -1,23 +1,117 @@
-﻿/*
-    TITULO: FUNCIONALIDAD PARA LA EDICION DE HISTORIAS
-    AUTOR: ADRIEL HERRERA
-    FECHA DE CREACION: 12/10/2025
+﻿
+let publishBtn = document.getElementsByClassName("editbarbut");
 
-    DESCRIPCION: Este archivo de Javascript se va a centrar en la instancia de divs, 
-    como cuando alguien va a escribir una nueva partd de la historia o va agregar 
-    una nueva etiqueta.
+publishBtn[0].addEventListener("click", async function () {
 
-*/
+    let titleInput = document.getElementById("title_edit_input");
+    let title;
 
-var numberTags = 0; //NUMERO DE TAGS EN LA PANTALLA
-var numberFrags = 0; //NUMERO DE PARTES EN LA PANTALLA
+    if (titleInput) {
+        title = titleInput.value.trim();
+    } else {
+        title = document.getElementById("title_edit").textContent.trim();
+    }
+
+    const authorId = parseInt(document.getElementById("story_author_id").value, 10);
+    const categoryId = parseInt(document.getElementById("story_category_id").value, 10);
+
+    const statusBool = true;
+    const rate = 0;
+    const poster = "default_poster.png";
+
+    if (isNaN(authorId)) {
+        alert("Error: No se encontró el autor.");
+        return;
+    }
+
+    if (isNaN(categoryId)) {
+        alert("Error: Selecciona una categoría.");
+        return;
+    }
+
+    const storyData = {
+        TitleSt: title,
+        AutorSt: authorId,
+        CategorySt: categoryId,
+        StateSt: statusBool,
+        RateSt: rate,
+        PosterSt: poster
+    };
+
+    console.log("Enviando:", storyData);
+
+    try {
+        let response = await fetch("/Stories/createStory", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(storyData)
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            alert("¡Historia publicada exitosamente!");
+        } else {
+            const errorData = await response.json();
+            alert(`No se pudo publicar la historia: ${JSON.stringify(errorData)}`);
+        }
+
+    } catch (error) {
+        alert("Error de red. Revisa la consola.");
+        console.error(error);
+    }
+});
+
+
+
+/**
+ * Esta función bloquea todos los controles de la página
+ * para pasar al estado "Publicado" (solo lectura).
+ */
+function enterPublishedState(publishedTitle) {
+    // 1. Actualizar el texto de estado
+    const statusBar = document.getElementById("editbar");
+    if (statusBar) {
+        statusBar.textContent = "Status: Published";
+    }
+
+    // 2. Deshabilitar el título
+    const titleInput = document.getElementById("title_edit");
+    if (titleInput) {
+        titleInput.value = publishedTitle; // Asegura el valor
+        titleInput.disabled = true; // Lo bloquea
+        titleInput.classList.add("published-title"); // Clase para que le quites el borde con CSS
+    }
+
+    // 3. Ocultar todos los botones de edición
+    const buttonsToHide = document.querySelectorAll(".editbarbut, .xtag[onclick='addTag()'], .buttons_ia");
+    buttonsToHide.forEach(btn => {
+        btn.style.display = 'none';
+    });
+    
+    // 4. Deshabilitar los inputs restantes
+    const inputsToDisable = document.querySelectorAll("#story_category_id, #add_tag, #input_story");
+    inputsToDisable.forEach(input => {
+        input.disabled = true;
+        input.style.backgroundColor = "#f0f0f0"; // Color de fondo gris
+    });
+
+    // 5. Ocultar el área de "add new tag"
+    const addTagArea = document.getElementById("info_add_tags_edit");
+    if(addTagArea) addTagArea.style.display = 'none';
+}
+
+
+var numberTags = 0; 
+var numberFrags = 0;
 
 function addTag() {
     //IDENTIFICACION Y SELECCION DE DIVS
     const padre = document.getElementById("info_tags_box");
     const nueva_tag = document.createElement("div");
     const nueva_x = document.createElement("div");
-    const input_texto = document.getElementById("add_tag"); 
+    const input_texto = document.getElementById("add_tag");
 
     //SI EL USUARIO DEJA EL INPUT DEL TAG VACIO O SI ES MUY LARGO, NO PROSEGUIR
     if (input_texto.value == "" || input_texto.value == null || input_texto.value.length > 50) {
@@ -38,7 +132,7 @@ function addTag() {
         nueva_tag.appendChild(nueva_x);
         input_texto.value = "";
         numberTags += 1;
-    } 
+    }
 }
 
 function deleteTag(xid) {
@@ -70,9 +164,7 @@ async function addFrag() {
         nuevo_user.textContent = "Nombre de usuario";
         nuevo_user.style.color = color;
         nuevo_frag.style.borderLeft = "solid 4px " + color;
-        /*nueva_x.onclick = function () {
-            deleteTag(nueva_x.id);
-        };*/
+        
         const params = new URLSearchParams(window.location.search);
 
         let data = {

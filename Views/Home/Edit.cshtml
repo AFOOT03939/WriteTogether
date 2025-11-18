@@ -1,4 +1,5 @@
-﻿<!--
+﻿@using System.Security.Claims
+<!--
     TITULO: VISTA EDIT
     AUTOR: ADRIEL HERRERA
     FECHA DE CREACION: 16/09/2025
@@ -40,14 +41,32 @@
 
                 <!--DIV PARA LA INFORMACION DE LA HISTORIA-->
                 <div id="info_edit">
-                    <div id="info_text_edit">
-                    <!--<p style="font-weight: bold;">Information</p>-->
-                        <p>Author: Adriel Herrera</p>
-                        <p>Collaborators:</p>
-                        <ul>
-                            <li>Alejandra Castillo</li>
-                        </ul>
-                    </div>
+                <div id="info_text_edit">
+
+                    <input type="hidden"
+                           id="story_author_id"
+                           value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" />
+
+                    <p>Author: @User.Identity?.Name</p>
+
+                    <p>Collaborators:</p>
+                    <ul>
+                        <li>Alejandra Castillo</li>
+                    </ul>
+                </div>
+                <div class="tagtitle">Category</div>
+                <select id="story_category_id" class="tu-clase-para-selects">
+                    <option value="1">Fantasy</option>
+                    <option value="2">Romance</option>
+                    <option value="3">Mistery</option>
+                    <option value="4">Scifi</option>
+                    <option value="5">Horror</option>
+                    <option value="6">Adventure</option>
+                    <option value="7">Drama</option>
+                    <option value="8">Comedy</option>
+                    <option value="9">Historical</option>
+                    <option value="10">Thriller</option>
+                </select>
                     <div id="info_tags_edit">
                         <div class="tagtitle">Tags</div>
                         <div id="info_tags_box">
