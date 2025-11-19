@@ -1,7 +1,7 @@
 ﻿/*
     TITULO: FUNCIONALIDAD PARA LA EDICION DE HISTORIAS
     AUTOR: ADRIEL HERRERA
-    FECHA DE CREACION: 12/10/2025
+
 
     DESCRIPCION: Este archivo de Javascript se va a centrar en la instancia de divs, 
     como cuando alguien va a escribir una nueva partd de la historia o va agregar 
