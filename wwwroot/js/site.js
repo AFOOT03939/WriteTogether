@@ -1,4 +1,8 @@
-﻿const signup = document.getElementById("sign-up");
+﻿document.addEventListener("DOMContentLoaded", () => {
+    showCategories();
+});
+
+const signup = document.getElementById("sign-up");
 const login = document.getElementById("log-in");
 const closeBtn = document.getElementsByClassName("toggle-account");
 const body = document.body;
@@ -21,9 +25,10 @@ async function showCategories() {
     `;
 }
 
-// This generates the pop-up
-const section = document.createElement("section")
-section.innerHTML = `
+function showModal() {
+    // This generates the pop-up
+    const section = document.createElement("section")
+    section.innerHTML = `
         <div class="modal-container">
             <div class="modal-content">
                 <div class="popup-container">
@@ -35,21 +40,23 @@ section.innerHTML = `
             </div>
         </div>
     `
-body.appendChild(section);
-const closeBtns = section.querySelectorAll(".toggle-account")
-// Button for erasing the pop-up
-closeBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-        section.remove()
+    body.appendChild(section);
+    const closeBtns = section.querySelectorAll(".toggle-account")
+    // Button for erasing the pop-up
+    closeBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            section.remove()
+        })
     })
-})
 
-const signupopup = document.getElementById("popup-signup")
+    const signupopup = document.getElementById("popup-signup")
 
-signupopup.addEventListener("click", () => {
-    section.remove();
-    signup.click();
-})
+    signupopup.addEventListener("click", () => {
+        section.remove();
+        signup.click();
+    })
+}
+
 
 // Signup procedure
 
@@ -156,7 +163,8 @@ login.addEventListener("click", () => {
 
     const closeBtn = section.querySelector(".toggle-account")
     closeBtn.addEventListener("click", () => {
-        section.remove()
+        section.remove();
+        showCategories();
     })
 
     // login request
@@ -184,7 +192,7 @@ login.addEventListener("click", () => {
             const result = await response.json();
             alert(result.message);
             section.remove();
-            window.location.reload()
+            showCategories();
 
         } catch (err) {
             console.error(err);
@@ -193,3 +201,4 @@ login.addEventListener("click", () => {
 })
 
 showCategories();
+

@@ -10,6 +10,10 @@
 
 */
 
+body{
+    height: 100%;
+}
+
 html {
     padding: 0px;
     font-size: 15px;
@@ -17,14 +21,13 @@ html {
 
 #main_div_edit {
     width: 100%;
-    height: fit-content;
     display: flex;
     margin: auto;
     padding: 20px;
     flex-direction: column;
     gap: 20px;
     background: #333333;
-    min-height: 512px;
+    min-height: 100%;
 }
 
 #header_edit {
@@ -331,6 +334,7 @@ html {
     overflow-wrap: break-word;
     width: 100%;
     text-align: justify;
+    color: black;
 }
 
 p{

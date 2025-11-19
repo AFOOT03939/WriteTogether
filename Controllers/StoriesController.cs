@@ -46,17 +46,28 @@ namespace WriteTogether.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> createStory([Bind("IdSt,TitleSt,DateUs,AutorSt,CategorySt,RateSt,PosterSt, StateSt")] Story story)
+        public async Task<IActionResult> createStory([FromBody] Story story)
         {
-            if (ModelState.IsValid)
+            try
             {
                 story.DateUs = DateTime.Now;
                 _context.Add(story);
                 await _context.SaveChangesAsync();
-                return Ok(new { success = true, message = "Usuario creado exitosamente." });
+
+                return Ok(new { success = true, message = "Historia creada exitosamente." });
             }
-            return RedirectToAction("Edit", "Home");
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    success = false,
+                    message = "Error interno del servidor.",
+                    error = ex.Message,
+                    innerError = ex.InnerException?.Message
+                });
+            }
         }
+
 
         [HttpPut]
         public async Task<IActionResult> editStory(int id, [Bind("IdSt,TitleSt,CategorySt,RateSt,PosterSt,StateSt")] Story story)
@@ -96,6 +107,18 @@ namespace WriteTogether.Controllers
             }
             return RedirectToAction("Edit", "Home");
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var story = await _context.Stories
+                .FirstOrDefaultAsync(s => s.IdSt == id);
+
+            if (story == null)
+                return NotFound();
+
+            return View(story);
+        }
+
 
         [HttpPut]
         public async Task<IActionResult> editState(int id, [Bind("IdSt,StateSt")] Story story)
