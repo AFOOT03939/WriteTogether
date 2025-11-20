@@ -11,7 +11,7 @@ const dropDown = document.getElementById("dropdown");
 async function showCategories() {
     const response = await fetch("/Categories/getCategories");
     const categories = await response.json();
-        dropDown.innerHTML += `
+    dropDown.innerHTML += `
          <a href="/Home/Category/Fantasy">${categories[0]}</a></br>
          <a href="/Home/Category/Romance">${categories[1]}</a></br>
          <a href="/Home/Category/Mistery">${categories[2]}</a></br>
@@ -57,9 +57,7 @@ function showModal() {
     })
 }
 
-
 // Signup procedure
-
 signup.addEventListener("click", () => {
     const section = document.createElement("section")
     section.innerHTML = `
@@ -96,7 +94,6 @@ signup.addEventListener("click", () => {
     })
 
     // Request to the backend
-
     let signupBtn = document.getElementById("signup-form");
     signupBtn.addEventListener("submit", async function (e) {
         e.preventDefault();
@@ -127,12 +124,10 @@ signup.addEventListener("click", () => {
         } catch (err) {
             console.error(err);
         }
-
     });
 })
 
 // login procedure
-
 login.addEventListener("click", () => {
     const section = document.createElement("section")
     section.innerHTML = `
@@ -168,7 +163,6 @@ login.addEventListener("click", () => {
     })
 
     // login request
-
     let LoginBtn = document.getElementById("login-form");
     LoginBtn.addEventListener("submit", async function (e) {
         e.preventDefault();
@@ -192,7 +186,7 @@ login.addEventListener("click", () => {
             const result = await response.json();
             alert(result.message);
             section.remove();
-            showCategories();
+            window.location.reload();
 
         } catch (err) {
             console.error(err);
@@ -201,4 +195,3 @@ login.addEventListener("click", () => {
 })
 
 showCategories();
-

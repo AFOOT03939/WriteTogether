@@ -22,18 +22,26 @@ namespace WriteTogether.Controllers
             _context = context;
         }
 
-        // POST: Create an User and send him to the DB, it recieves 5 parameters
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("IdUs,NameUs,EmailUs,PasswordUs,DateUs")] [FromBody] User user)
+        public async Task<IActionResult> Create([Bind("IdUs,NameUs,EmailUs,PasswordUs,DateUs")][FromBody] User user)
         {
             if (ModelState.IsValid)
             {
+                // Verificar si ya existe un usuario con el mismo correo
+                var exists = await _context.Users.AnyAsync(u => u.EmailUs == user.EmailUs);
+                if (exists)
+                {
+                    return BadRequest(new { success = false, message = "El correo ya está registrado." });
+                }
+
                 _context.Add(user);
                 await _context.SaveChangesAsync();
                 return Ok(new { success = true, message = "Usuario creado exitosamente." });
             }
+
             return BadRequest(ModelState);
         }
+
 
 
         // POST: Log an User using the cookies from asp.net

@@ -3,25 +3,38 @@ using WriteTogether.Models.DB;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuthentication("MyCookies") 
+builder.Services.AddAuthentication("MyCookies")
     .AddCookie("MyCookies", options =>
     {
         options.LoginPath = "/Home/Index";
         options.AccessDeniedPath = "/Home/Index";
     });
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddDbContext<WriteTogetherContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
+
+// ===============================
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<WriteTogetherContext>();
+
+    if (db.Database.CanConnect())
+        Console.WriteLine("La base de datos SÍ está conectada.");
+    else
+        Console.WriteLine("ERROR: No se pudo conectar a la base de datos.");
+}
+// ===============================
+
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
