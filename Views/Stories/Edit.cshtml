@@ -18,7 +18,18 @@
     var userName = User.Identity.IsAuthenticated
         ? User.FindFirst(ClaimTypes.Name)?.Value
         : null;
+
+    string? userIdStr = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+    int? userIdSafe = null;
+
+    if (!string.IsNullOrEmpty(userIdStr) && int.TryParse(userIdStr, out var parsed))
+    {
+        userIdSafe = parsed;
+    }
 }
+
+
 
 
 <html>
@@ -31,7 +42,15 @@
 
         <div id="main_div_edit">
             <div id="header_edit"><!--DIV PARA EL TITULO DE LA HISTORIA-->
-            <input id="title_edit_input" value="@Model.TitleSt" />
+            @if(Model.AutorSt == userIdSafe)
+            {
+                <input id="title_edit" value="@Model.TitleSt" />
+            }
+            else
+            {
+                <div id="title_edit">@Model.TitleSt</div>
+            }
+            
 
                 <div id="header_options_edit">
                     <div id="editbar">Status: in progress</div>
@@ -42,8 +61,13 @@
                         <div class="star2"></div>
                         <div class="star2"></div>
                     </div>
-                    <div class="editbarbut">Publish</div>
+
+                    @if(Model?.AutorSt == userIdSafe)
+            {
+                    <div class="editbarbut">Save</div>
                     <div class="editbarbut">Upload photo</div>
+                    <div class="editbarbut">Publish</div>
+            }
                 </div>
             </div>
 
@@ -58,26 +82,80 @@
                            id="story_author_id"
                            value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" />
 
-                    <p>Author: @User.Identity?.Name</p>
+                    <p>Author: @Model?.AutorStNavigation.NameUs</p>
 
                     <p>Collaborators:</p>
                     <ul>
-                        <li>Alejandra Castillo</li>
+                        @{
+                            var creator = Model?.AutorStNavigation.NameUs;
+
+                            var authors = Model.Fragments
+                            .Select(f => f.AutorFrNavigation?.NameUs)
+                            .Where(name => !string.IsNullOrEmpty(name) && name != creator)
+                            .Distinct()
+                            .ToList();
+
+                            if (authors.Count == 0)
+                            {
+                                <li>None</li>
+                            }
+                            else if (authors.Count == 1)
+                            {
+                                <li>@authors[0]</li>
+                            }
+                            else if (authors.Count == 2)
+                            {
+                                <li>@authors[0]</li>
+                                <li>@authors[1]</li>
+                            }
+                            else
+                            {
+                                <li>@authors[0]</li>
+                                <li>@authors[1]</li>
+                                <li>and others</li>
+                            }
+                        }
                     </ul>
+
+
                 </div>
-                <div class="tagtitle">Category</div>
-                <select id="story_category_id" class="tu-clase-para-selects">
-                    <option value="1">Fantasy</option>
-                    <option value="2">Romance</option>
-                    <option value="3">Mistery</option>
-                    <option value="4">Scifi</option>
-                    <option value="5">Horror</option>
-                    <option value="6">Adventure</option>
-                    <option value="7">Drama</option>
-                    <option value="8">Comedy</option>
-                    <option value="9">Historical</option>
-                    <option value="10">Thriller</option>
-                </select>
+                @{
+                    string categoryName = Model?.CategorySt switch
+                    {
+                        1 => "Fantasy",
+                        2 => "Romance",
+                        3 => "Mystery",
+                        4 => "Sci-Fi",
+                        5 => "Horror",
+                        6 => "Adventure",
+                        7 => "Drama",
+                        8 => "Comedy",
+                        9 => "Historical",
+                        10 => "Thriller",
+                        _ => "Unknown"
+                    };
+                }
+                @if (Model?.AutorSt == userIdSafe)
+                {
+                    <div class="tagtitle">Category</div>
+                    <select id="story_category_id" class="tu-clase-para-selects">
+                        <option value="1">Fantasy</option>
+                        <option value="2">Romance</option>
+                        <option value="3">Mistery</option>
+                        <option value="4">Scifi</option>
+                        <option value="5">Horror</option>
+                        <option value="6">Adventure</option>
+                        <option value="7">Drama</option>
+                        <option value="8">Comedy</option>
+                        <option value="9">Historical</option>
+                        <option value="10">Thriller</option>
+                    </select>
+                }
+                else
+                {
+                    <div class="tagtitle">Category: @categoryName</div>
+                }
+
                     <div id="info_tags_edit">
                         <div class="tagtitle">Tags</div>
                         <div id="info_tags_box">

@@ -79,7 +79,7 @@ html {
 
 #info_text_edit {
     width: 100%;
-    max-height: fit-content;
+    min-height: 115px;
     flex: 3;
     font-size: 15px;
 }
