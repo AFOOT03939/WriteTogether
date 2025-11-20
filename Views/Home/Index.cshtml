@@ -1,6 +1,10 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@model List<WriteTogether.Models.DB.Story>
+
+
+
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="hero-content">
@@ -15,136 +19,45 @@
 <!-- Featured Stories Section -->
 <section class="stories-section">
     <div class="stories-grid">
-        <div class="story-card" onclick="openEdit()">
-            <div class="story-image">📖</div>
-            <div class="story-info">
-                <h3>Story 1</h3>
-                <div class="story-rating">★★★★★</div>
-                <div class="story-meta">
-                    <div>Author: xxxx</div>
-                    <div>Category: xxxx</div>
-                    <div>Date: xx/xx/xxxx</div>
-                </div>
-            </div>
-        </div>
+        @foreach (var story in Model)
+        {
+            int rating = story.RateSt ?? 0;
+            string categoryName = story.CategorySt switch
+            {
+                1 => "Fantasy",
+                2 => "Romance",
+                3 => "Mistery",
+                4 => "Sci-Fi",
+                5 => "Horror",
+                6 => "Adventure",
+                7 => "Drama",
+                8 => "Comedy",
+                9 => "Historical",
+                10 => "Thriller",
+                _ => "Unknown"
+            };
 
-        <div class="story-card" onclick="openStory(2)">
-            <div class="story-image">📚</div>
-            <div class="story-info">
-                <h3>Story 2</h3>
-                <div class="story-rating">★★★★☆</div>
-                <div class="story-meta">
-                    <div>Author: xxxx</div>
-                    <div>Category: xxxx</div>
-                    <div>Date: xx/xx/xxxx</div>
-                </div>
-            </div>
-        </div>
+            <div class="story-card" onclick="openStory(@story.IdSt)">
+                <div class="story-image">📖</div>
 
-        <div class="story-card" onclick="openStory(3)">
-            <div class="story-image">📝</div>
-            <div class="story-info">
-                <h3>Story 3</h3>
-                <div class="story-rating">★★★★★</div>
-                <div class="story-meta">
-                    <div>Author: xxxx</div>
-                    <div>Category: xxxx</div>
-                    <div>Date: xx/xx/xxxx</div>
-                </div>
-            </div>
-        </div>
+                <div class="story-info">
+                    <h3>@story.TitleSt</h3>
 
-        <div class="story-card" onclick="openStory(4)">
-            <div class="story-image">📖</div>
-            <div class="story-info">
-                <h3>Story 4</h3>
-                <div class="story-rating">★★★☆☆</div>
-                <div class="story-meta">
-                    <div>Author: xxxx</div>
-                    <div>Category: xxxx</div>
-                    <div>Date: xx/xx/xxxx</div>
-                </div>
-            </div>
-        </div>
+                    <div class="story-rating">
+                        @Html.Raw(new string('★', rating) + new string('☆', 5 - rating))
+                    </div>
 
-        <div class="story-card" onclick="openStory(5)">
-            <div class="story-image">📚</div>
-            <div class="story-info">
-                <h3>Story 5</h3>
-                <div class="story-rating">★★★★☆</div>
-                <div class="story-meta">
-                    <div>Author: xxxx</div>
-                    <div>Category: xxxx</div>
-                    <div>Date: xx/xx/xxxx</div>
+                    <div class="story-meta">
+                        <div>Author: @story.AutorStNavigation?.NameUs</div>
+                        <div>Category: @categoryName</div>
+                        <div>Date: @story.DateUs.ToString("dd/MM/yyyy")</div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="story-card" onclick="openStory(6)">
-            <div class="story-image">📝</div>
-            <div class="story-info">
-                <h3>Story 6</h3>
-                <div class="story-rating">★★★★★</div>
-                <div class="story-meta">
-                    <div>Author: xxxx</div>
-                    <div>Category: xxxx</div>
-                    <div>Date: xx/xx/xxxx</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="story-card" onclick="openStory(7)">
-            <div class="story-image">📖</div>
-            <div class="story-info">
-                <h3>Story 7</h3>
-                <div class="story-rating">★★★☆☆</div>
-                <div class="story-meta">
-                    <div>Author: xxxx</div>
-                    <div>Category: xxxx</div>
-                    <div>Date: xx/xx/xxxx</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="story-card" onclick="openStory(8)">
-            <div class="story-image">📚</div>
-            <div class="story-info">
-                <h3>Story 8</h3>
-                <div class="story-rating">★★★★☆</div>
-                <div class="story-meta">
-                    <div>Author: xxxx</div>
-                    <div>Category: xxxx</div>
-                    <div>Date: xx/xx/xxxx</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="story-card" onclick="openStory(8)">
-            <div class="story-image">📚</div>
-            <div class="story-info">
-                <h3>Story 8</h3>
-                <div class="story-rating">★★★★☆</div>
-                <div class="story-meta">
-                    <div>Author: xxxx</div>
-                    <div>Category: xxxx</div>
-                    <div>Date: xx/xx/xxxx</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="story-card" onclick="openStory(8)">
-            <div class="story-image">📚</div>
-            <div class="story-info">
-                <h3>Story 8</h3>
-                <div class="story-rating">★★★★☆</div>
-                <div class="story-meta">
-                    <div>Author: xxxx</div>
-                    <div>Category: xxxx</div>
-                    <div>Date: xx/xx/xxxx</div>
-                </div>
-            </div>
-        </div>
+        }
     </div>
+
+
 
 </section>
 
@@ -197,8 +110,7 @@
 </section>
 
 <script>
-    function openEdit() {
-        var url = '@Url.Action("Edit", "Stories")';
-        window.location.href = url;
+    function openStory(id) {
+        window.location.href = '/Stories/Edit/' + id;
     }
 </script>

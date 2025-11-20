@@ -1,21 +1,31 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using WriteTogether.Models;
+using WriteTogether.Models.DB;
 
 namespace WriteTogether.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly WriteTogetherContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, WriteTogetherContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var stories = await _context.Stories
+                .Include(s => s.AutorStNavigation)
+                .Include(s => s.CategoryStNavigation)
+                .OrderByDescending(s => s.DateUs)
+                .ToListAsync();
+
+            return View(stories);
         }
 
         public IActionResult Category()
@@ -38,7 +48,6 @@ namespace WriteTogether.Controllers
             return View();
         }
 
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -46,3 +55,4 @@ namespace WriteTogether.Controllers
         }
     }
 }
+

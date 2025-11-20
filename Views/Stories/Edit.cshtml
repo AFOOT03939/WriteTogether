@@ -182,13 +182,18 @@
                 <!--ESTE DIV ES EL ESPACIO DE EDICION DONDE SE ESCRIBE LA HISTORIA-->
                 <div id="text_edit">
                     <div id="notebook_edit">
-                        @foreach (var fragment in Model.Fragments.OrderBy(f => f.IdFr))
+                    @if (Model?.Fragments != null && Model.Fragments.Any())
+                    {
+                        foreach (var fragment in Model.Fragments.OrderBy(f => f.IdFr))
                         {
                             <div class="history_fragment">
-                            <div class="frag_user">@fragment.AutorFrNavigation.NameUs  @fragment.DateUs</div>
+                                <div class="frag_user">@fragment.AutorFrNavigation?.NameUs @fragment.DateUs</div>
                                 <div class="frag_text">@fragment.ContentFr</div>
                             </div>
                         }
+                    }
+                    
+
                     </div>
 
                     <div id="type_edit">
