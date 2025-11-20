@@ -97,7 +97,7 @@ function createStory(filteredStory) {
 
     return `
             <div class="story-card" data-story-id="${filteredStory.idSt}"
-               onclick="window.location.href='/Home/Edit?id=${filteredStory.idSt}'">
+               onclick="window.location.href='/Stories/Edit/${filteredStory.idSt}'">
               <div class="story-image">📚</div>
               <div class="story-info">
                   <h3>${filteredStory.titleSt}</h3>

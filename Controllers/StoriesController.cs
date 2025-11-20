@@ -111,13 +111,18 @@ namespace WriteTogether.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var story = await _context.Stories
-                .FirstOrDefaultAsync(s => s.IdSt == id);
+            .Include(s => s.Fragments)
+                .ThenInclude(f => f.AutorFrNavigation)
+            .FirstOrDefaultAsync(s => s.IdSt == id);
+
 
             if (story == null)
                 return NotFound();
 
             return View(story);
+
         }
+
 
 
         [HttpPut]

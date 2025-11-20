@@ -13,6 +13,13 @@
     ViewData["Title"] = "Edit story";
 }
 @model WriteTogether.Models.DB.Story
+@using System.Security.Claims;
+@{
+    var userName = User.Identity.IsAuthenticated
+        ? User.FindFirst(ClaimTypes.Name)?.Value
+        : null;
+}
+
 
 <html>
     <head>
@@ -96,20 +103,31 @@
 
                 <!--ESTE DIV ES EL ESPACIO DE EDICION DONDE SE ESCRIBE LA HISTORIA-->
                 <div id="text_edit">
-                <div id="notebook_edit">
-                    @foreach (var fragment in Model.Fragments.OrderBy(f => f.IdFr))
-                    {
-                        <div class="history_fragment">
-                            <div class="frag_user">@fragment.AutorFrNavigation  @fragment.DateUs</div>
-                            <div class="frag_text">@fragment.ContentFr</div>
-                        </div>
-                    }
-                </div>
+                    <div id="notebook_edit">
+                        @foreach (var fragment in Model.Fragments.OrderBy(f => f.IdFr))
+                        {
+                            <div class="history_fragment">
+                            <div class="frag_user">@fragment.AutorFrNavigation.NameUs  @fragment.DateUs</div>
+                                <div class="frag_text">@fragment.ContentFr</div>
+                            </div>
+                        }
+                    </div>
 
                     <div id="type_edit">
                         <textarea id="input_story" placeholder="Type something..."></textarea>
                         <div id="buttons_ia_edit">
-                            <div class="buttons_ia" onclick="addFrag()">Submit</div>
+                        <div class="buttons_ia" @if (!User.Identity.IsAuthenticated)
+                                {
+                                    <text>onclick="alert('Debes iniciar sesión para agregar un fragmento.'); return false;"</text>
+                            }
+                                else
+                            {
+                                    <text>onclick="addFrag()"</text>
+                            }
+                        >
+                            Submit
+                        </div>
+                            
                             <div class="buttons_ia">AI correction</div>
                             <div class="buttons_ia">Correct all story</div>
                         </div>
@@ -138,5 +156,7 @@
     V
 
 -->
-
+<script>
+    var currentUserName = "@userName";
+</script>
 <script src="~/js/Edit.js" asp-append-version="true"></script>

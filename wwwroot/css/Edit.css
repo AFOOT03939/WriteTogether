@@ -239,7 +239,7 @@ html {
 .star {
     flex: 0 1 30px;
     aspect-ratio: 1 / 1;
-    background: url(../Images/star.png);
+    background: url(../Images/notstar.png);
     background-size: cover;
     background-position: center;
     display: flex;
@@ -249,7 +249,7 @@ html {
 .star2 {
     flex: 0 1 30px;
     aspect-ratio: 1 / 1;
-    background: url(../Images/star.png);
+    background: url(../Images/notstar.png);
     background-size: cover;
     background-position: center;
     display: flex;

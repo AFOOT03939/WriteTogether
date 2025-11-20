@@ -32,6 +32,25 @@ namespace WriteTogether.Controllers
             return Ok(new { message = "Fragmento guardado sin validar modelo." });
         }
 
-    
-}
+        [HttpGet("getByStory/{storyId}")]
+        public async Task<IActionResult> getByStory(int storyId)
+        {
+            var frags = await _context.Fragments
+                .Where(f => f.StoryFr == storyId)
+                .Include(f => f.AutorFrNavigation)
+                .Select(f => new
+                {
+                    id = f.IdFr,
+                    content = f.ContentFr,
+                    date = f.DateUs,
+                    autor = f.AutorFrNavigation.NameUs
+                })
+                .ToListAsync();
+
+            return Ok(frags);
+        }
+
+
+
+    }
 }

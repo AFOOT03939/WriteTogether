@@ -132,6 +132,30 @@ async function addFrag() {
         return;
     }
 
+    // OBTENER EL ID CORRECTAMENTE
+    const storyId = parseInt(document.getElementById("story_id").value);
+
+    let data = {
+        ContentFr: input_texto.value,
+        DateUs: new Date().toISOString(),
+        StoryFr: storyId
+    };
+
+    try {
+        const response = await fetch("/Fragments/postFragments", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        console.log(result.message);
+
+    } catch (error) {
+        console.error("Error al guardar fragmento:", error);
+    }
+
+    // Render normal
     const nuevo_frag = document.createElement("div");
     const nuevo_user = document.createElement("div");
     const nuevo_texto = document.createElement("div");
@@ -140,34 +164,17 @@ async function addFrag() {
     nuevo_frag.classList.add("history_fragment");
     nuevo_user.classList.add("frag_user");
     nuevo_texto.classList.add("frag_text");
-    nuevo_frag.id = "frag" + numberFrags;
-    nuevo_texto.textContent = input_texto.value;
-    nuevo_user.textContent = "Nombre de usuario";
-    nuevo_user.style.color = color;
+
     nuevo_frag.style.borderLeft = "solid 4px " + color;
+    nuevo_user.style.color = color;
 
-    const params = new URLSearchParams(window.location.search);
-    let data = {
-        ContentFr: input_texto.value,
-        DateUs: new Date().toISOString(),
-        StoryFr: parseInt(params.get("id"))
-    }
+    nuevo_user.textContent = currentUserName + "  Now" || "Unknown   Now";
+    nuevo_texto.textContent = input_texto.value;
 
-    try {
-        const response = await fetch("/Fragments/postFragments", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data)
-        });
-        const result = await response.json();
-        console.log(result.message);
-    } catch (error) {
-        console.error("Error al guardar fragmento:", error);
-    }
-
-    padre.appendChild(nuevo_frag);
     nuevo_frag.appendChild(nuevo_user);
     nuevo_frag.appendChild(nuevo_texto);
+    padre.appendChild(nuevo_frag);
+
     input_texto.value = "";
     numberFrags += 1;
 }
@@ -189,3 +196,37 @@ function generarColor() {
     ];
     return colores[generarRandom(0, colores.length)];
 }
+
+async function loadFragments() {
+    const storyId = parseInt(document.getElementById("story_id").value);
+
+    const response = await fetch(`/Fragments/getByStory/${storyId}`);
+    const fragments = await response.json();
+
+    const container = document.getElementById("notebook_edit");
+    container.innerHTML = ""; // limpiar
+
+    fragments.forEach(f => {
+        const color = generarColor();
+
+        const frag = document.createElement("div");
+        frag.classList.add("history_fragment");
+        frag.style.borderLeft = "solid 4px " + color;
+
+        const userDiv = document.createElement("div");
+        userDiv.classList.add("frag_user");
+        userDiv.style.color = color;
+        userDiv.textContent = f.autor;
+
+        const textDiv = document.createElement("div");
+        textDiv.classList.add("frag_text");
+        textDiv.textContent = f.content;
+
+        frag.appendChild(userDiv);
+        frag.appendChild(textDiv);
+
+        container.appendChild(frag);
+    });
+}
+
+window.onload = loadFragments;
