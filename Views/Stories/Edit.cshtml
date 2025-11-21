@@ -38,13 +38,13 @@
     </head>
     <body>
         <!--ESTE DIV CONTIENE TODO LO DEMAS-->
-    <input type="hidden" id="story_id" value="@Model.IdSt" />
+    <input type="hidden" id="story_id" value="@(Model?.IdSt ?? 0)" />
 
         <div id="main_div_edit">
             <div id="header_edit"><!--DIV PARA EL TITULO DE LA HISTORIA-->
-            @if(Model.AutorSt == userIdSafe)
+            @if(Model.AutorSt == userIdSafe  || Model.IdSt == 0)
             {
-                <input id="title_edit" value="@Model.TitleSt" />
+                <input id="title_edit" value="@(Model?.TitleSt ?? "")" />
             }
             else
             {
@@ -64,9 +64,9 @@
 
                     @if(Model?.AutorSt == userIdSafe)
             {
-                    <div class="editbarbut">Save</div>
+                    <div class="editbarbut" id="savebut">Save</div>
                     <div class="editbarbut">Upload photo</div>
-                    <div class="editbarbut">Publish</div>
+                    <div class="editbarbut" id="publicarbut">Publish</div>
             }
                 </div>
             </div>
@@ -82,12 +82,12 @@
                            id="story_author_id"
                            value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" />
 
-                    <p>Author: @Model?.AutorStNavigation.NameUs</p>
+                    <p>Author: @(Model?.AutorStNavigation?.NameUs ?? "You")</p>
 
                     <p>Collaborators:</p>
                     <ul>
                         @{
-                            var creator = Model?.AutorStNavigation.NameUs;
+                            var creator = Model?.AutorStNavigation?.NameUs ?? "Unknown";
 
                             var authors = Model.Fragments
                             .Select(f => f.AutorFrNavigation?.NameUs)
@@ -135,7 +135,7 @@
                         _ => "Unknown"
                     };
                 }
-                @if (Model?.AutorSt == userIdSafe)
+                @if (Model?.AutorSt == userIdSafe || Model.IdSt == 0)
                 {
                     <div class="tagtitle">Category</div>
                     <select id="story_category_id" class="tu-clase-para-selects">
@@ -184,7 +184,7 @@
                     <div id="notebook_edit">
                     @if (Model?.Fragments != null && Model.Fragments.Any())
                     {
-                        foreach (var fragment in Model.Fragments.OrderBy(f => f.IdFr))
+                        @foreach (var fragment in Model?.Fragments)
                         {
                             <div class="history_fragment">
                                 <div class="frag_user">@fragment.AutorFrNavigation?.NameUs @fragment.DateUs</div>

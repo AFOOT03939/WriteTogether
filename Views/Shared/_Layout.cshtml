@@ -23,16 +23,18 @@
         </div>
 
         <div class="search-container">
-            <input type="text" class="search-bar" placeholder="Buscar historias..." id="searchBar">
+            <input type="text" class="search-bar" placeholder="Search stories..." id="searchBar">
         </div>
 
         <div class="nav-buttons">
             <p class="name-avatar"></p>
-            <!--if (User.Identity.IsAuthenticated)
-            { }
-            -->
-            <a asp-controller="Home" asp-action="Edit" class="nav-btn start-story-btn">Start a new story</a>
-            
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form method="post" asp-controller="Stories" asp-action="StartNewStory">
+                    <button type="submit" class="nav-btn start-story-btn">Start a new story</button>
+                </form>
+
+            }
             
             <a asp-controller="Home" asp-action="Profile" class="nav-btn start-story-btn">Profile</a>
             @if (User.Identity.IsAuthenticated)

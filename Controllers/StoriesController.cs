@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using WriteTogether.Models;
 using WriteTogether.Models.DB;
 
@@ -69,51 +70,30 @@ namespace WriteTogether.Controllers
         }
 
 
-        [HttpPut]
-        public async Task<IActionResult> editStory(int id, [Bind("IdSt,TitleSt,CategorySt,RateSt,PosterSt,StateSt")] Story story)
+        [HttpPost]
+        public async Task<IActionResult> editStory([FromBody] Story story)
         {
-            if (id != story.IdSt)
-            {
-                return NotFound();
-            }
+            var existingStory = await _context.Stories.FindAsync(story.IdSt);
+            if (existingStory == null) return NotFound();
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    var existingStory = await _context.Stories.FindAsync(id);
-                    if (existingStory == null) return NotFound();
+            existingStory.TitleSt = story.TitleSt;
+            existingStory.CategorySt = story.CategorySt;
+            existingStory.RateSt = story.RateSt;
+            existingStory.PosterSt = story.PosterSt;
+            existingStory.StateSt = story.StateSt;
 
-                    existingStory.TitleSt = story.TitleSt;
-                    existingStory.CategorySt = story.CategorySt;
-                    existingStory.RateSt = story.RateSt;
-                    existingStory.PosterSt = story.PosterSt;
-                    existingStory.StateSt = story.StateSt;
-
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!StoryExists(story.IdSt))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return Ok(new { success = true, message = "Usuario editado exitosamente." });
-            }
-            return RedirectToAction("Edit", "Home");
+            await _context.SaveChangesAsync();
+            return Ok(new { message = "Historia guardada correctamente." });
         }
+
+
 
         public async Task<IActionResult> Edit(int id)
         {
             var story = await _context.Stories
                 .Include(s => s.AutorStNavigation)
                 .Include(s => s.CategoryStNavigation)
-                .Include(s => s.Fragments) 
+                .Include(s => s.Fragments)
                     .ThenInclude(f => f.AutorFrNavigation)
                 .FirstOrDefaultAsync(s => s.IdSt == id);
 
@@ -121,6 +101,33 @@ namespace WriteTogether.Controllers
                 return NotFound();
 
             return View(story);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> StartNewStory()
+        {
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userIdStr)) return Unauthorized();
+
+            var userId = int.Parse(userIdStr);
+
+            // Crear historia por defecto
+            var newStory = new Story
+            {
+                TitleSt = "New Story",
+                AutorSt = userId,
+                CategorySt = 1,         // Fantasy por defecto
+                StateSt = false,        // In progress
+                RateSt = 0,
+                PosterSt = "default_poster.png"
+            };
+
+            _context.Stories.Add(newStory);
+            await _context.SaveChangesAsync(); // Esto asigna IdSt automáticamente
+
+            // Redirigir a Edit con el Id generado
+            return RedirectToAction("Edit", new { id = newStory.IdSt });
         }
 
 

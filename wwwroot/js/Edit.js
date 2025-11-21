@@ -1,6 +1,45 @@
-﻿let publishBtn = document.getElementsByClassName("editbarbut");
+﻿let publishBtn = document.getElementById("publicarbut");
+let savebut = document.getElementById("savebut");
 
-publishBtn[0].addEventListener("click", async function () {
+savebut.addEventListener("click", async function () {
+    const storyId = parseInt(document.getElementById("story_id").value, 10);
+    const titleInput = document.getElementById("title_edit");
+    const title = titleInput.value.trim();
+    const authorId = parseInt(document.getElementById("story_author_id").value, 10);
+    const categoryId = parseInt(document.getElementById("story_category_id").value, 10);
+
+    const storyData = {
+        IdSt: storyId,
+        TitleSt: title,
+        AutorSt: authorId,
+        CategorySt: categoryId,
+        StateSt: true,
+        RateSt: 0,
+        PosterSt: "default_poster.png"
+    };
+
+    try {
+        const response = await fetch("/Stories/editStory", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(storyData)
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            alert(result.message);
+        } else {
+            const errorData = await response.json();
+            alert(`No se pudo guardar: ${JSON.stringify(errorData)}`);
+        }
+    } catch (error) {
+        console.error(error);
+        alert("Error de red al guardar la historia.");
+    }
+});
+
+
+publishBtn.addEventListener("click", async function () {
     let titleInput = document.getElementById("title_edit_input");
     let title;
 
