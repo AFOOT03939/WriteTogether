@@ -29,28 +29,24 @@
     }
 }
 
-
-
-
 <html>
     <head>
         <link rel="stylesheet" href="~/css/Edit.css" />
     </head>
     <body>
         <!--ESTE DIV CONTIENE TODO LO DEMAS-->
-    <input type="hidden" id="story_id" value="@(Model?.IdSt ?? 0)" />
+        <input type="hidden" id="story_id" value="@(Model?.IdSt ?? 0)" />
 
         <div id="main_div_edit">
             <div id="header_edit"><!--DIV PARA EL TITULO DE LA HISTORIA-->
-            @if(Model.AutorSt == userIdSafe  || Model.IdSt == 0)
-            {
-                <input id="title_edit" value="@(Model?.TitleSt ?? "")" />
-            }
-            else
-            {
-                <div id="title_edit">@Model.TitleSt</div>
-            }
-            
+                @if(Model.AutorSt == userIdSafe  || Model.IdSt == 0)
+                {
+                    <input id="title_edit" value="@(Model?.TitleSt ?? "")" />
+                }
+                else
+                {
+                    <div id="title_edit">@Model.TitleSt</div>
+                }
 
                 <div id="header_options_edit">
                     <div id="editbar">Status: in progress</div>
@@ -63,11 +59,11 @@
                     </div>
 
                     @if(Model?.AutorSt == userIdSafe)
-            {
-                    <div class="editbarbut" id="savebut">Save</div>
-                    <div class="editbarbut">Upload photo</div>
-                    <div class="editbarbut" id="publicarbut">Publish</div>
-            }
+                    {
+                        <div class="editbarbut" id="savebut">Save</div>
+                        <div class="editbarbut">Upload photo</div>
+                        <div class="editbarbut" id="publicarbut">Publish</div>
+                    }
                 </div>
             </div>
 
@@ -76,85 +72,85 @@
 
                 <!--DIV PARA LA INFORMACION DE LA HISTORIA-->
                 <div id="info_edit">
-                <div id="info_text_edit">
+                    <div id="info_text_edit">
 
-                    <input type="hidden"
-                           id="story_author_id"
-                           value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" />
+                        <input type="hidden"
+                               id="story_author_id"
+                               value="@User.FindFirst(ClaimTypes.NameIdentifier)?.Value" />
 
-                    <p>Author: @(Model?.AutorStNavigation?.NameUs ?? "You")</p>
+                        <p>Author: @(Model?.AutorStNavigation?.NameUs ?? "You")</p>
 
-                    <p>Collaborators:</p>
-                    <ul>
-                        @{
-                            var creator = Model?.AutorStNavigation?.NameUs ?? "Unknown";
+                        <p>Collaborators:</p>
+                        <ul>
+                            @{
+                                var creator = Model?.AutorStNavigation?.NameUs ?? "Unknown";
 
-                            var authors = Model.Fragments
-                            .Select(f => f.AutorFrNavigation?.NameUs)
-                            .Where(name => !string.IsNullOrEmpty(name) && name != creator)
-                            .Distinct()
-                            .ToList();
+                                var authors = Model.Fragments
+                                .Select(f => f.AutorFrNavigation?.NameUs)
+                                .Where(name => !string.IsNullOrEmpty(name) && name != creator)
+                                .Distinct()
+                                .ToList();
 
-                            if (authors.Count == 0)
-                            {
-                                <li>None</li>
+                                if (authors.Count == 0)
+                                {
+                                    <li>None</li>
+                                }
+                                else if (authors.Count == 1)
+                                {
+                                    <li>@authors[0]</li>
+                                }
+                                else if (authors.Count == 2)
+                                {
+                                    <li>@authors[0]</li>
+                                    <li>@authors[1]</li>
+                                }
+                                else
+                                {
+                                    <li>@authors[0]</li>
+                                    <li>@authors[1]</li>
+                                    <li>and others</li>
+                                }
                             }
-                            else if (authors.Count == 1)
-                            {
-                                <li>@authors[0]</li>
-                            }
-                            else if (authors.Count == 2)
-                            {
-                                <li>@authors[0]</li>
-                                <li>@authors[1]</li>
-                            }
-                            else
-                            {
-                                <li>@authors[0]</li>
-                                <li>@authors[1]</li>
-                                <li>and others</li>
-                            }
-                        }
-                    </ul>
+                        </ul>
 
 
-                </div>
-                @{
-                    string categoryName = Model?.CategorySt switch
+                    </div>
+                    @{
+                        string categoryName = Model?.CategorySt switch
+                        {
+                            1 => "Fantasy",
+                            2 => "Romance",
+                            3 => "Mystery",
+                            4 => "Sci-Fi",
+                            5 => "Horror",
+                            6 => "Adventure",
+                            7 => "Drama",
+                            8 => "Comedy",
+                            9 => "Historical",
+                            10 => "Thriller",
+                            _ => "Unknown"
+                        };
+                    }
+                    @if (Model?.AutorSt == userIdSafe || Model.IdSt == 0)
                     {
-                        1 => "Fantasy",
-                        2 => "Romance",
-                        3 => "Mystery",
-                        4 => "Sci-Fi",
-                        5 => "Horror",
-                        6 => "Adventure",
-                        7 => "Drama",
-                        8 => "Comedy",
-                        9 => "Historical",
-                        10 => "Thriller",
-                        _ => "Unknown"
-                    };
-                }
-                @if (Model?.AutorSt == userIdSafe || Model.IdSt == 0)
-                {
-                    <div class="tagtitle">Category</div>
-                    <select id="story_category_id" class="tu-clase-para-selects">
-                        <option value="1">Fantasy</option>
-                        <option value="2">Romance</option>
-                        <option value="3">Mistery</option>
-                        <option value="4">Scifi</option>
-                        <option value="5">Horror</option>
-                        <option value="6">Adventure</option>
-                        <option value="7">Drama</option>
-                        <option value="8">Comedy</option>
-                        <option value="9">Historical</option>
-                        <option value="10">Thriller</option>
-                    </select>
-                }
-                else
-                {
-                    <div class="tagtitle">Category: @categoryName</div>
-                }
+                        <div class="tagtitle">Category</div>
+                        <select id="story_category_id" class="tu-clase-para-selects">
+                            <option value="1">Fantasy</option>
+                            <option value="2">Romance</option>
+                            <option value="3">Mystery</option>
+                            <option value="4">Sci-Fi</option>
+                            <option value="5">Horror</option>
+                            <option value="6">Adventure</option>
+                            <option value="7">Drama</option>
+                            <option value="8">Comedy</option>
+                            <option value="9">Historical</option>
+                            <option value="10">Thriller</option>
+                        </select>
+                    }
+                    else
+                    {
+                        <div class="tagtitle">Category: @categoryName</div>
+                    }
 
                     <div id="info_tags_edit">
                         <div class="tagtitle">Tags</div>
@@ -166,7 +162,7 @@
                         -->
                         </div>
                         <div class="tagtitle">Add new tag</div>
-                    <div id="info_add_tags_edit"><div id="input_tag"><input type="text" placeholder="Type a tag..." id="add_tag" /><div class="xtag" style="font-size: 30px;" onclick="addTag()">+</div></div></div>
+                        <div id="info_add_tags_edit"><div id="input_tag"><input type="text" placeholder="Type a tag..." id="add_tag" /><div class="xtag" style="font-size: 30px;" onclick="addTag()">+</div></div></div>
                         <div class="tagtitle">Story rating</div>
                         <div class="add_stars">
                             <div class="star"></div>
@@ -176,70 +172,410 @@
                             <div class="star"></div>
                         </div>
                     </div>
-                    
+
                 </div>
 
                 <!--ESTE DIV ES EL ESPACIO DE EDICION DONDE SE ESCRIBE LA HISTORIA-->
                 <div id="text_edit">
                     <div id="notebook_edit">
-                    @if (Model?.Fragments != null && Model.Fragments.Any())
-                    {
-                        @foreach (var fragment in Model?.Fragments)
+                        @if (Model?.Fragments != null && Model.Fragments.Any())
                         {
-                            <div class="history_fragment">
-                                <div class="frag_user">@fragment.AutorFrNavigation?.NameUs @fragment.DateUs</div>
-                                <div class="frag_text">@fragment.ContentFr</div>
-                            </div>
+                            @foreach (var fragment in Model?.Fragments)
+                            {
+                                <div class="history_fragment" data-fragment-id="@fragment.IdFr" style="cursor: pointer; transition: all 0.3s;">
+                                    <div class="frag_user">@fragment.AutorFrNavigation?.NameUs @fragment.DateUs</div>
+                                    <div class="frag_text">@fragment.ContentFr</div>
+                                </div>
+                            }
                         }
-                    }
-                    
+
 
                     </div>
 
                     <div id="type_edit">
                         <textarea id="input_story" placeholder="Type something..."></textarea>
                         <div id="buttons_ia_edit">
-                        <div class="buttons_ia" @if (!User.Identity.IsAuthenticated)
-                                {
-                                    <text>onclick="alert('Debes iniciar sesión para agregar un fragmento.'); return false;"</text>
-                            }
-                                else
-                            {
-                                    <text>onclick="addFrag()"</text>
-                            }
-                        >
-                            Submit
-                        </div>
-                            
-                            <div class="buttons_ia">AI correction</div>
-                            <div class="buttons_ia">Correct all story</div>
+                            <div class="buttons_ia" @if (!User.Identity.IsAuthenticated)
+                                                     {
+                                                         <text>onclick="alert('Debes iniciar sesión para agregar un fragmento.'); return false;"</text>
+                                                     }
+                                                     else
+                                                     {
+                                                         <text>onclick="addFrag()"</text>
+                                                     }
+                                 >
+                                Submit
+                            </div>
+
+                            <div class="buttons_ia" onclick="correctSelectedFragment()">AI correction</div>
+                            <div class="buttons_ia" onclick="callCorrectAllStory()">Correct all story</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </body>
-
 </html>
 
-<!--
-    TITULO DE LA MODIFICACION: CONTENEDORES PARA LA EDICION DE LA HISTORIA (HTML)
-    NUMERO DE MODIFICACION: 1
-    AUTOR: ADRIEL HERRERA
+<script src="~/js/GeminiAPI.js" asp-append-version="true"></script>
+<script src="~/js/Querys.js" asp-append-version="true"></script>
+<script src="~/js/Edit.js" asp-append-version="true"></script>
 
-
-    DESCRIPCION: Esta nueva actualizacion se va a centrar en crear las clases
-    para la instancia de divs, como cuando alguien va a escribir una nueva parte
-    de la historia o va agregar una nueva etiqueta.
-
-    |
-    |
-    |
-    |
-    V
-
--->
 <script>
     var currentUserName = "@userName";
+    var selectedFragmentElement = null; // Variable para almacenar el fragmento seleccionado
+
+    document.addEventListener('DOMContentLoaded', function() {
+        attachFragmentListeners();
+    });
+
+    function attachFragmentListeners() {
+        document.querySelectorAll('.history_fragment').forEach(frag => {
+            frag.addEventListener('click', function() {
+                selectFragment(this);
+            });
+        });
+    }
+
+    function selectFragment(fragmentElement) {
+        if (selectedFragmentElement === fragmentElement) {
+            fragmentElement.classList.remove('selected-fragment');
+            fragmentElement.style.boxShadow = '';
+            fragmentElement.style.backgroundColor = '';
+            selectedFragmentElement = null;
+            console.log("[v0] Fragmento deseleccionado");
+            return;
+        }
+
+        // Remover selección anterior
+        document.querySelectorAll('.history_fragment').forEach(frag => {
+            frag.classList.remove('selected-fragment');
+            frag.style.boxShadow = '';
+            frag.style.backgroundColor = '';
+        });
+
+        // Aplicar selección al nuevo fragmento
+        fragmentElement.classList.add('selected-fragment');
+        fragmentElement.style.boxShadow = '0 0 10px rgba(59, 130, 246, 0.5)';
+        fragmentElement.style.backgroundColor = 'rgba(59, 130, 246, 0.05)';
+        selectedFragmentElement = fragmentElement;
+        
+        console.log("[v0] Fragmento seleccionado:", fragmentElement.getAttribute('data-fragment-id'));
+    }
+
+    async function correctSelectedFragment() {
+        if (!selectedFragmentElement) {
+            alert('⚠️ Por favor, selecciona un fragmento primero haciendo clic sobre él.');
+            return;
+        }
+
+        const fragmentId = parseInt(selectedFragmentElement.getAttribute('data-fragment-id'));
+        const textDiv = selectedFragmentElement.querySelector('.frag_text');
+        const originalText = textDiv.textContent;
+        // OBTENER EL ID DE LA HISTORIA
+        const storyId = parseInt(document.getElementById("story_id").value);
+
+        if (!fragmentId || !originalText) {
+            alert('❌ Error: No se pudo obtener la información del fragmento.');
+            return;
+        }
+
+        console.log("[v0] Iniciando corrección para fragmento:", fragmentId);
+
+        // AHORA PASAMOS storyId COMO CUARTO PARÁMETRO
+        await correctFragment(fragmentId, originalText, selectedFragmentElement, storyId);
+    }
+
+    // AGREGAR ESTA NUEVA FUNCIÓN
+    async function callCorrectAllStory() {
+        const storyId = parseInt(document.getElementById("story_id").value);
+        if (!storyId || storyId === 0) {
+            alert("Error: No se ha identificado la historia.");
+            return;
+        }
+
+        const confirmacion = confirm("Esto reescribirá todos los fragmentos para darles coherencia global. ¿Deseas continuar?");
+        if (confirmacion) {
+            await correctAllFragments(storyId);
+        }
+    }
+
+    let publishBtn = document.getElementById("publicarbut");
+    let savebut = document.getElementById("savebut");
+
+    savebut.addEventListener("click", async function () {
+        const storyId = parseInt(document.getElementById("story_id").value, 10);
+        const titleInput = document.getElementById("title_edit");
+        const title = titleInput.value.trim();
+        const authorId = parseInt(document.getElementById("story_author_id").value, 10);
+        const categoryId = parseInt(document.getElementById("story_category_id").value, 10);
+
+        const storyData = {
+            IdSt: storyId,
+            TitleSt: title,
+            AutorSt: authorId,
+            CategorySt: categoryId,
+            StateSt: true,
+            RateSt: 0,
+            PosterSt: "default_poster.png"
+        };
+
+        try {
+            const response = await fetch("/Stories/editStory", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(storyData)
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                alert(result.message);
+            } else {
+                const errorData = await response.json();
+                alert(`No se pudo guardar: ${JSON.stringify(errorData)}`);
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Error de red al guardar la historia.");
+        }
+    });
+
+
+    publishBtn.addEventListener("click", async function () {
+        let titleInput = document.getElementById("title_edit_input");
+        let title;
+
+        if (titleInput) {
+            title = titleInput.value.trim();
+        } else {
+            title = document.getElementById("title_edit").textContent.trim();
+        }
+
+        const authorId = parseInt(document.getElementById("story_author_id").value, 10);
+        const categoryId = parseInt(document.getElementById("story_category_id").value, 10);
+        const statusBool = true;
+        const rate = 0;
+        const poster = "default_poster.png";
+
+        if (isNaN(authorId)) {
+            alert("Error: No se encontró el autor.");
+            return;
+        }
+
+        if (isNaN(categoryId)) {
+            alert("Error: Selecciona una categoría.");
+            return;
+        }
+
+        const storyData = {
+            TitleSt: title,
+            AutorSt: authorId,
+            CategorySt: categoryId,
+            StateSt: statusBool,
+            RateSt: rate,
+            PosterSt: poster
+        };
+
+        try {
+            let response = await fetch("/Stories/createStory", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(storyData)
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                alert("¡Historia publicada exitosamente!");
+                enterPublishedState(title);
+            } else {
+                const errorData = await response.json();
+                alert(`No se pudo publicar: ${JSON.stringify(errorData)}`);
+            }
+        } catch (error) {
+            alert("Error de red. Revisa la consola.");
+            console.error(error);
+        }
+    });
+
+    /**
+     * Bloquea controles para modo "solo lectura" tras publicar
+     */
+    function enterPublishedState(publishedTitle) {
+        const statusBar = document.getElementById("editbar");
+        if (statusBar) statusBar.textContent = "Status: Published";
+
+        const titleInput = document.getElementById("title_edit");
+        if (titleInput) {
+            titleInput.value = publishedTitle;
+            titleInput.disabled = true;
+            titleInput.classList.add("published-title");
+        }
+
+        const buttonsToHide = document.querySelectorAll(".editbarbut, .xtag[onclick='addTag()'], .buttons_ia");
+        buttonsToHide.forEach(btn => btn.style.display = 'none');
+
+        const inputsToDisable = document.querySelectorAll("#story_category_id, #add_tag, #input_story");
+        inputsToDisable.forEach(input => {
+            input.disabled = true;
+            input.style.backgroundColor = "#f0f0f0";
+        });
+
+        const addTagArea = document.getElementById("info_add_tags_edit");
+        if (addTagArea) addTagArea.style.display = 'none';
+    }
+
+    var numberTags = 0;
+    var numberFrags = 0;
+
+    function addTag() {
+        const padre = document.getElementById("info_tags_box");
+        const input_texto = document.getElementById("add_tag");
+
+        if (!input_texto.value || input_texto.value.length > 50) {
+            alert("Ingresa una etiqueta válida (máx 50 caracteres)");
+            return;
+        }
+
+        const nueva_tag = document.createElement("div");
+        const nueva_x = document.createElement("div");
+
+        nueva_tag.classList.add("info_tags");
+        nueva_x.classList.add("xtag");
+        nueva_tag.id = "tag" + numberTags;
+        nueva_x.id = numberTags.toString();
+        nueva_tag.textContent = input_texto.value;
+        nueva_x.textContent = "x";
+
+        nueva_x.onclick = function () {
+            deleteTag(nueva_x.id);
+        };
+
+        padre.appendChild(nueva_tag);
+        nueva_tag.appendChild(nueva_x);
+        input_texto.value = "";
+        numberTags += 1;
+    }
+
+    function deleteTag(xid) {
+        const tag = document.getElementById("tag" + xid);
+        if (tag) {
+            tag.remove();
+            numberTags -= 1;
+        }
+    }
+
+    async function addFrag() {
+        const padre = document.getElementById("notebook_edit");
+        const input_texto = document.getElementById("input_story");
+
+        if (!input_texto.value) {
+            alert("Ingresa un texto válido");
+            return;
+        }
+
+        // OBTENER EL ID CORRECTAMENTE
+        const storyId = parseInt(document.getElementById("story_id").value);
+
+        let data = {
+            ContentFr: input_texto.value,
+            DateUs: new Date().toISOString(),
+            StoryFr: storyId
+        };
+
+        try {
+            const response = await fetch("/Fragments/postFragments", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+            console.log(result.message);
+
+        } catch (error) {
+            console.error("Error al guardar fragmento:", error);
+        }
+
+        // Render normal
+        const nuevo_frag = document.createElement("div");
+        const nuevo_user = document.createElement("div");
+        const nuevo_texto = document.createElement("div");
+        const color = generarColor();
+
+        nuevo_frag.classList.add("history_fragment");
+        nuevo_user.classList.add("frag_user");
+        nuevo_texto.classList.add("frag_text");
+
+        nuevo_frag.style.borderLeft = "solid 4px " + color;
+        nuevo_user.style.color = color;
+
+        nuevo_user.textContent = currentUserName + "  Now" || "Unknown   Now";
+        nuevo_texto.textContent = input_texto.value;
+
+        nuevo_frag.appendChild(nuevo_user);
+        nuevo_frag.appendChild(nuevo_texto);
+        padre.appendChild(nuevo_frag);
+
+        input_texto.value = "";
+        numberFrags += 1;
+    }
+
+    function generarRandom(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    function generarColor() {
+        const colores = [
+            "rgb(228, 8, 10)",    // ROJO
+            "rgb(244, 147, 1)",   // NARANJA
+            "rgb(246, 198, 7)",   // AMARILLO
+            "rgb(57, 184, 7)",    // VERDE
+            "rgb(8, 1, 199)",     // AZUL
+            "rgb(110, 1, 199)",   // MORADO
+            "rgb(147, 75, 3)",    // CAFE
+            "rgb(3, 144, 147)"    // AQUA
+        ];
+        return colores[generarRandom(0, colores.length)];
+    }
+
+    async function loadFragments() {
+        const storyId = parseInt(document.getElementById("story_id").value);
+
+        const response = await fetch(`/Fragments/getByStory/${storyId}`);
+        const fragments = await response.json();
+
+        const container = document.getElementById("notebook_edit");
+        container.innerHTML = ""; // limpiar
+
+        fragments.forEach(f => {
+            const color = generarColor();
+
+            const frag = document.createElement("div");
+            frag.classList.add("history_fragment");
+            frag.style.borderLeft = "solid 4px " + color;
+            frag.setAttribute('data-fragment-id', f.id); 
+            frag.style.cursor = 'pointer'; 
+            frag.style.transition = 'all 0.3s'; 
+
+            frag.addEventListener('click', function() {
+                selectFragment(this);
+            });
+
+            const userDiv = document.createElement("div");
+            userDiv.classList.add("frag_user");
+            userDiv.style.color = color;
+            userDiv.textContent = f.autor;
+
+            const textDiv = document.createElement("div");
+            textDiv.classList.add("frag_text");
+            textDiv.textContent = f.content;
+
+            frag.appendChild(userDiv);
+            frag.appendChild(textDiv);
+
+            container.appendChild(frag);
+        });
+    }
+
+    window.onload = loadFragments;
 </script>
-<script src="~/js/Edit.js" asp-append-version="true"></script>

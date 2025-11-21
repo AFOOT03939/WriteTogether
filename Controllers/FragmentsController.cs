@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WriteTogether.Models;
 using WriteTogether.Models.DB;
 
 namespace WriteTogether.Controllers
@@ -20,6 +21,7 @@ namespace WriteTogether.Controllers
             _context = context;
         }
 
+
         [HttpPost]
         public async Task<ActionResult> postFragments([FromBody] Fragment fragment)
         {
@@ -29,10 +31,16 @@ namespace WriteTogether.Controllers
             _context.Fragments.Add(fragment);
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Fragmento guardado sin validar modelo." });
+            return Ok(new
+            {
+                message = "Fragmento guardado",
+                id = fragment.IdFr,
+                autorName = User.Identity.Name 
+            });
         }
 
-        [HttpGet("getByStory/{storyId}")]
+        [HttpGet]
+        [Route("Fragments/getByStory/{storyId}")]
         public async Task<IActionResult> getByStory(int storyId)
         {
             var frags = await _context.Fragments
@@ -50,7 +58,32 @@ namespace WriteTogether.Controllers
             return Ok(frags);
         }
 
+        [HttpPut]
+        [Route("Fragments/updateFragment/{fragmentId}")]
+        public async Task<IActionResult> UpdateFragment(int fragmentId, [FromBody] UpdateFragmentRequest request)
+        {
+            var fragment = await _context.Fragments.FindAsync(fragmentId);
 
+            if (fragment == null)
+            {
+                return NotFound(new { message = "Fragmento no encontrado" });
+            }
 
+            fragment.ContentFr = request.ContentFr;
+            fragment.DateUs = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                message = "Fragmento actualizado exitosamente",
+                content = fragment.ContentFr
+            });
+        }
+    }
+
+    public class UpdateFragmentRequest
+    {
+        public string ContentFr { get; set; }
     }
 }

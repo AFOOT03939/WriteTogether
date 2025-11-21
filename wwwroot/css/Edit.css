@@ -340,3 +340,21 @@ html {
 p{
     font-size: 15px;
 }
+
+.history_fragment {
+    cursor: pointer; /* Obliga a que salga la manita */
+    transition: all 0.2s ease;
+    position: relative; /* Importante para el borde */
+}
+
+    /* Estilo cuando está seleccionado */
+    .history_fragment.selected {
+        box-shadow: 0 0 0 3px #000 inset; /* Borde interno negro grueso */
+        background-color: rgba(255, 255, 0, 0.1); /* Fondo amarillo muy tenue */
+    }
+
+    /* Efecto al pasar el mouse por encima (Hover) */
+    .history_fragment:hover {
+        opacity: 0.9;
+        background-color: rgba(0,0,0,0.05);
+    }
