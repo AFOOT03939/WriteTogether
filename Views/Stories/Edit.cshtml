@@ -155,21 +155,23 @@
                     <div id="info_tags_edit">
                         <div class="tagtitle">Tags</div>
                         <div id="info_tags_box">
-                            <!--MOD 1
-                            <div class="info_tags">Tag1<div class="xtag">x</div></div>
-                            <div class="info_tags">Tag2<div class="xtag">x</div></div>
-                            <div class="info_tags">Tag3<div class="xtag">x</div></div>
-                        -->
+                        @if (Model?.IdTags != null)
+                        {
+                            foreach (var tag in Model.IdTags)
+                            {
+                                <div class="info_tags" id="tag@(tag.IdTag)"> @tag.NameTag <div class="xtag" onclick="deleteTag('@tag.IdTag')">x</div> </div>
+                            }
+                        }
                         </div>
                         <div class="tagtitle">Add new tag</div>
-                        <div id="info_add_tags_edit"><div id="input_tag"><input type="text" placeholder="Type a tag..." id="add_tag" /><div class="xtag" style="font-size: 30px;" onclick="addTag()">+</div></div></div>
+                    <div id="info_add_tags_edit"><div id="input_tag"><input type="text" placeholder="Type a tag..." id="add_tag" /><div class="xtag" style="font-size: 30px;" onclick="addTag()" id="save_tags_btn">+</div></div></div>
                         <div class="tagtitle">Story rating</div>
                         <div class="add_stars">
-                            <div class="star"></div>
-                            <div class="star"></div>
-                            <div class="star"></div>
-                            <div class="star"></div>
-                            <div class="star"></div>
+                            <div class="star" id="star1" onclick="mandarRating(1)"></div>
+                            <div class="star" id="star2" onclick="mandarRating(2)"></div>
+                            <div class="star" id="star3" onclick="mandarRating(3)"></div>
+                            <div class="star" id="star4" onclick="mandarRating(4)"></div>
+                            <div class="star" id="star5" onclick="mandarRating(5)"></div>
                         </div>
                     </div>
 
@@ -183,7 +185,10 @@
                             @foreach (var fragment in Model?.Fragments)
                             {
                                 <div class="history_fragment" data-fragment-id="@fragment.IdFr" style="cursor: pointer; transition: all 0.3s;">
-                                    <div class="frag_user">@fragment.AutorFrNavigation?.NameUs @fragment.DateUs</div>
+                                    <div class="frag_user">
+                                        @fragment.AutorFrNavigation?.NameUs — @(fragment.DateUs.ToString("yyyy-MM-dd HH:mm") ?? "")
+                                    </div>
+
                                     <div class="frag_text">@fragment.ContentFr</div>
                                 </div>
                             }
@@ -259,7 +264,7 @@
         fragmentElement.style.boxShadow = '0 0 10px rgba(59, 130, 246, 0.5)';
         fragmentElement.style.backgroundColor = 'rgba(59, 130, 246, 0.05)';
         selectedFragmentElement = fragmentElement;
-        
+
         console.log("[v0] Fragmento seleccionado:", fragmentElement.getAttribute('data-fragment-id'));
     }
 
@@ -456,13 +461,45 @@
         numberTags += 1;
     }
 
-    function deleteTag(xid) {
-        const tag = document.getElementById("tag" + xid);
-        if (tag) {
-            tag.remove();
-            numberTags -= 1;
+        async function deleteTag(tagId) {
+        const storyId = parseInt(document.getElementById("story_id").value);
+
+        if (!storyId || storyId === 0) {
+            alert("Error: no se encontró el ID de la historia.");
+            return;
+        }
+
+        if (!confirm("¿Eliminar este tag?")) return;
+
+        const data = {
+            StoryId: storyId,
+            TagIds: [parseInt(tagId)]
+        };
+
+        try {
+            const response = await fetch("/Stories/DeleteTags", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                // eliminar del DOM
+                const tagDiv = document.getElementById("tag" + tagId);
+                if (tagDiv) tagDiv.remove();
+                alert(result.message);
+            } else {
+                alert("Error al borrar tag: " + result.message);
+            }
+
+        } catch (error) {
+            console.error(error);
+            alert("Error de red al intentar borrar el tag.");
         }
     }
+
 
     async function addFrag() {
         const padre = document.getElementById("notebook_edit");
@@ -538,44 +575,45 @@
         return colores[generarRandom(0, colores.length)];
     }
 
-    async function loadFragments() {
-        const storyId = parseInt(document.getElementById("story_id").value);
-
-        const response = await fetch(`/Fragments/getByStory/${storyId}`);
-        const fragments = await response.json();
-
-        const container = document.getElementById("notebook_edit");
-        container.innerHTML = ""; // limpiar
-
-        fragments.forEach(f => {
-            const color = generarColor();
-
-            const frag = document.createElement("div");
-            frag.classList.add("history_fragment");
-            frag.style.borderLeft = "solid 4px " + color;
-            frag.setAttribute('data-fragment-id', f.id); 
-            frag.style.cursor = 'pointer'; 
-            frag.style.transition = 'all 0.3s'; 
-
-            frag.addEventListener('click', function() {
-                selectFragment(this);
-            });
-
-            const userDiv = document.createElement("div");
-            userDiv.classList.add("frag_user");
-            userDiv.style.color = color;
-            userDiv.textContent = f.autor;
-
-            const textDiv = document.createElement("div");
-            textDiv.classList.add("frag_text");
-            textDiv.textContent = f.content;
-
-            frag.appendChild(userDiv);
-            frag.appendChild(textDiv);
-
-            container.appendChild(frag);
-        });
+    function mandarRating(cal){
+        for (let i = 1; i <= 5; i++){
+            if(i <= cal){
+                let star = document.getElementById("star"+i);
+                star.style.backgroundImage = "url('/Images/star.png')";
+            } else {
+                let star = document.getElementById("star"+i);
+                star.style.backgroundImage = "url('/Images/notstar.png')";
+            }
+        }
     }
 
-    window.onload = loadFragments;
+        async function saveTags() {
+        const storyId = parseInt(document.getElementById("story_id").value, 10);
+
+        // obtener tags del DOM
+        const tags = [];
+        document.querySelectorAll("#info_tags_box .info_tags").forEach(t => {
+            const cleanTag = t.firstChild.textContent.trim();
+            tags.push(cleanTag);
+        });
+
+        const data = {
+            StoryId: storyId,
+            Tags: tags
+        };
+
+        let response = await fetch("/Stories/UpdateTags", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        alert(result.message);
+    }
+
+    document.getElementById("save_tags_btn").addEventListener("click", saveTags);
+
+
+
 </script>

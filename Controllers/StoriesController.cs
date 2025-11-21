@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using WriteTogether.Models;
 using WriteTogether.Models.DB;
+using static WriteTogether.Controllers.StoriesController;
 
 namespace WriteTogether.Controllers
 {
@@ -86,6 +87,85 @@ namespace WriteTogether.Controllers
             return Ok(new { message = "Historia guardada correctamente." });
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateTags([FromBody] UpdateTagsDTO dto)
+        {
+            try
+            {
+                var story = await _context.Stories
+                    .Include(s => s.IdTags)
+                    .FirstOrDefaultAsync(s => s.IdSt == dto.StoryId);
+
+                if (story == null)
+                    return NotFound(new { message = "Story no encontrada." });
+
+                // 1. Eliminar relaciones existentes en tabla puente
+                var existingTags = story.IdTags.ToList();
+
+                foreach (var t in existingTags)
+                {
+                    story.IdTags.Remove(t);  // EF marca para borrar en JoinTable
+                }
+
+                // 2. Insertar nuevas etiquetas
+                foreach (var tagName in dto.Tags)
+                {
+                    var tag = await _context.Tags
+                        .FirstOrDefaultAsync(t => t.NameTag == tagName);
+
+                    if (tag == null)
+                    {
+                        tag = new Tag { NameTag = tagName };
+                        _context.Tags.Add(tag); // se inserta una nueva etiqueta
+                    }
+
+                    story.IdTags.Add(tag); // EF creará una fila en la JoinTable
+                }
+
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "Tags actualizados correctamente." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error interno.", error = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteTags([FromBody] DeleteTagsDTO dto)
+        {
+            var story = await _context.Stories
+                .Include(s => s.IdTags)
+                .FirstOrDefaultAsync(s => s.IdSt == dto.StoryId);
+
+            if (story == null)
+                return NotFound("Story not found");
+
+            // Buscar los tags relacionados que deben eliminarse
+            var tagsToRemove = story.IdTags
+                .Where(t => dto.TagIds.Contains(t.IdTag))
+                .ToList();
+
+            // Quitar relaciones Story_Tag
+            foreach (var tag in tagsToRemove)
+                story.IdTags.Remove(tag);
+
+            await _context.SaveChangesAsync();
+
+            return Ok("Tags eliminados correctamente");
+        }
+
+
+        public class DeleteTagsDTO
+        {
+            public int StoryId { get; set; }
+            public List<int> TagIds { get; set; }
+        }
+
+
+
+
 
 
         public async Task<IActionResult> Edit(int id)
@@ -95,6 +175,7 @@ namespace WriteTogether.Controllers
                 .Include(s => s.CategoryStNavigation)
                 .Include(s => s.Fragments)
                     .ThenInclude(f => f.AutorFrNavigation)
+                .Include(s => s.IdTags)
                 .FirstOrDefaultAsync(s => s.IdSt == id);
 
             if (story == null)
