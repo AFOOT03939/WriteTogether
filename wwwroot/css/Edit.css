@@ -1,17 +1,16 @@
 ﻿/*
     TITULO: ESTILOS CSS PARA VISTA EDIT
     AUTOR: ADRIEL HERRERA
-
-    DESCRIPCION: CSS con estilos para cada contenedor div de la
-    vista Edit. La estructura de la vista se basa en un contenedor principal
-    (main_div_edit) que aloja todos los demás contenedores. Luego, este
-    contenedor se divide en otros dos: header_edit (para el titulo) y 
-    body_edit (para el cuerpo en si de la historia).
-
+    DESCRIPCION: CSS con estilos modernos para la vista Edit
 */
 
-body{
+@import url("../MenuPrincipal.css");
+
+body {
     height: 100%;
+    background-color: #3d2817;
+    margin: 0;
+    padding: 0;
 }
 
 html {
@@ -21,22 +20,43 @@ html {
 
 #main_div_edit {
     width: 100%;
+    max-width: 100vw; /* Ajustado para que todo quepa en pantalla sin scroll */
     display: flex;
-    margin: auto;
-    padding: 20px;
+    margin: 0; /* Ajustado para que todo quepa en pantalla sin scroll */
+    padding: 15px; /* Ajustado para que todo quepa en pantalla sin scroll */
     flex-direction: column;
-    gap: 20px;
-    background: #333333;
-    min-height: 100%;
+    gap: 15px; /* Ajustado para que todo quepa en pantalla sin scroll */
+    background: #3d2817;
+    height: 100vh;
+    overflow: hidden;
+    box-sizing: border-box; /* Ajustado para que todo quepa en pantalla sin scroll */
 }
 
+/* Header Styles - Modernizado */
 #header_edit {
-    flex: 1;
-    background: #9D622E;
-    min-height: 75px;
+    flex: none; /* Altura fija para el header */
+    height: auto; /* Altura fija para el header */
+    min-height: auto; /* Altura fija para el header */
+    background: linear-gradient(135deg, #d4761a, #b8621a);
     display: flex;
     flex-direction: column;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    position: relative;
 }
+
+    #header_edit::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0 20L100 0v20z" fill="rgba(255,255,255,0.1)"/></svg>');
+        background-size: 100px 20px;
+        pointer-events: none;
+    }
 
 #title_edit {
     flex: 2;
@@ -44,37 +64,64 @@ html {
     font-size: 30px;
     align-items: center;
     display: flex;
-    padding: 10px;
-    overflow-x:hidden;
+    padding: 10px 20px;
+    overflow-x: hidden;
     white-space: nowrap;
     min-height: fit-content;
+    background: transparent;
+    border: none;
+    color: white;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
+
+    #title_edit:focus {
+        outline: none;
+        box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.3);
+        border-radius: 8px;
+    }
 
 #header_options_edit {
-    background: gray;
+    background: rgba(0, 0, 0, 0.2);
     flex: 1;
     display: flex;
     gap: 20px;
-    padding: 0 10px 0 10px;
+    padding: 10px 20px;
     align-items: center;
     justify-content: center;
-    padding: 5px;
+    position: relative;
+    z-index: 1;
 }
 
+/* Body Layout */
 #body_edit {
-    flex: 5;
+    flex: 1; /* Ajustado flex para ocupar el espacio restante sin exceder la pantalla */
     display: flex;
     gap: 20px;
+    min-height: 0;
+    overflow: hidden;
+    max-height: 100%; /* Flex para ocupar espacio restante sin exceder */
 }
 
+/* Info Panel - Modernizado */
 #info_edit {
-    background: #9D622E;
+    background: #2c1810;
     flex: 1;
-    min-width: 150px;
+    min-width: 200px;
+    max-width: 300px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 10px;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid #4a3426;
+    color: #e0d4c7;
+    /* Agregado overflow para permitir scroll si es necesario */
+    overflow-y: auto;
+    max-height: 100%;
 }
 
 #info_text_edit {
@@ -82,7 +129,19 @@ html {
     min-height: 115px;
     flex: 3;
     font-size: 15px;
+    color: #e0d4c7;
+    line-height: 1.6;
 }
+
+    #info_text_edit p {
+        margin: 8px 0;
+        color: #e0d4c7;
+    }
+
+    #info_text_edit ul {
+        margin: 5px 0 5px 20px;
+        color: #b8a693;
+    }
 
 #info_tags_edit {
     width: 100%;
@@ -98,31 +157,47 @@ html {
     max-height: fit-content;
 }
 
-.info_tags{
-    background: gray;
+.info_tags {
+    background: linear-gradient(135deg, #4a3426, #5a4336);
     min-width: fit-content;
-    height: 30px;
-    font-size: 15px;
+    height: 35px;
+    font-size: 14px;
     justify-content: space-between;
     align-items: center;
     display: flex;
     flex-basis: 60px;
-    border-radius: 8px;
-    padding: 0 2px 0 10px;
+    border-radius: 20px;
+    padding: 0 5px 0 15px;
+    color: #e0d4c7;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
 }
+
+    .info_tags:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(212, 118, 26, 0.3);
+    }
 
 .xtag {
     border-radius: 100%;
-    min-width: 20px;
-    min-height: 20px;
+    min-width: 35px;
+    min-height: 35px;
     justify-content: center;
     align-items: center;
     display: flex;
     user-select: none;
     font-weight: bold;
     margin: 0 0 0 8px;
-    cursor: pointer;/*MOD 1*/
+    cursor: pointer;
+    background-color: #d4761a;
+    color: white;
+    transition: all 0.3s;
 }
+
+    .xtag:hover {
+        background-color: #b8621a;
+        transform: scale(1.1);
+    }
 
 #info_tags_box {
     justify-content: center;
@@ -136,68 +211,122 @@ html {
 
 .tagtitle {
     width: 100%;
-    font-size: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #e0d4c7;
+    margin-top: 10px;
 }
 
+/* Text Editor Area - Modernizado */
 #text_edit {
-    flex: 1 1 3;
+    flex: 1; /* Centrado y con límites para que no se salga */
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px; /* Centrado y con límites para que no se salga */
     min-width: 250px;
-    width: 850px;
-    max-width: 850px;
-    margin: auto;
+    max-width: 100%; /* Centrado y con límites para que no se salga */
+    margin: 0 auto; /* Centrado y con límites para que no se salga */
+    overflow: hidden;
+    width: 100%; /* Centrado y con límites para que no se salga */
 }
-
 
 #add_tag {
-    margin: 15px;
-    width: 70%;
-    height: 20px;
-    font-size: 12px;
-    
+    margin: 0;
+    width: calc(100% - 40px);
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: #4a3426;
+    color: #e0d4c7;
+    border: 1px solid #6b4c37;
+    border-radius: 8px;
+    transition: all 0.3s;
 }
 
-#input_tag{
+    #add_tag:focus {
+        outline: none;
+        border-color: #d4761a;
+        box-shadow: 0 0 0 2px rgba(212, 118, 26, 0.2);
+        background-color: #5a4336;
+    }
+
+    #add_tag::placeholder {
+        color: #b8a693;
+    }
+
+#input_tag {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    gap: 10px;
 }
 
+/* Notebook - Modernizado */
 #notebook_edit {
-    flex: none;
+    flex: 1; /* Flex para ocupar espacio disponible con scroll */
     background-color: white;
     display: flex;
-    height: 200px;
-    border-radius: 20px;
-    padding: 10px;
-    overflow-y: auto;
+    border-radius: 15px;
+    padding: 20px;
+    overflow-y: auto; /* Flex para ocupar espacio disponible con scroll */
+    overflow-x: hidden;
     width: 100%;
     flex-direction: column;
-    min-width: 0;
-    max-width: 100%;
-    overflow-x: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid #4a3426;
+    min-height: 0;
+    max-height: 100%; /* Flex para ocupar espacio disponible con scroll */
 }
 
+    #notebook_edit::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    #notebook_edit::-webkit-scrollbar-track {
+        background: #f0f0f0;
+        border-radius: 10px;
+    }
+
+    #notebook_edit::-webkit-scrollbar-thumb {
+        background: #d4761a;
+        border-radius: 10px;
+    }
+
+        #notebook_edit::-webkit-scrollbar-thumb:hover {
+            background: #b8621a;
+        }
+
+/* Type Area */
 #type_edit {
-    flex: 1;
+    flex: none; /* Altura fija reducida para el área de escritura */
+    height: 120px; /* Altura fija reducida para el área de escritura */
     width: 100%;
     display: flex;
-    gap: 20px;
+    gap: 15px; /* Altura fija reducida para el área de escritura */
 }
 
 #input_story {
     flex-basis: 70%;
-    height: 125px;
+    height: 100%;
     background-color: white;
-    border: none;
+    border: 2px solid #4a3426;
     vertical-align: top;
     font-size: 15px;
     font-family: Arial, sans-serif;
-    padding: 10px;
+    padding: 15px;
+    border-radius: 15px;
+    resize: none;
+    transition: all 0.3s;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box; /* Agregado box-sizing para evitar problemas de padding */
 }
 
+    #input_story:focus {
+        outline: none;
+        border-color: #d4761a;
+        box-shadow: 0 0 0 3px rgba(212, 118, 26, 0.2);
+    }
+
+/* Buttons AI - Modernizado */
 #buttons_ia_edit {
     flex-basis: 30%;
     height: 100%;
@@ -208,32 +337,51 @@ html {
     justify-content: center;
     min-width: fit-content;
     padding: 5px;
-    font-size: 15px;
 }
 
 .buttons_ia {
-    padding: 5px;
-    border-radius: 10px;
-    background-color: #9D622E;
-    width: 80%;
-    height: 30px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    background: #d4761a;
+    width: 90%;
+    height: auto;
+    min-height: 10px;
     font-weight: bold;
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
     min-width: 160px;
-    cursor: pointer; /*MOD 1*/
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    z-index: 999;
 }
 
-.add_stars{
+    /* Removido el efecto de brillo con ::before */
+    .buttons_ia:hover {
+        background: #b8621a;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(212, 118, 26, 0.4);
+    }
+
+    .buttons_ia:active {
+        background: #a85518; /* Nuevo estado active */
+        transform: translateY(0);
+        box-shadow: 0 4px 12px rgba(212, 118, 26, 0.3);
+    }
+
+/* Stars - Modernizado */
+.add_stars {
     width: 100%;
     height: fit-content;
     display: flex;
     flex-wrap: nowrap;
-    gap: 10px;
+    gap: 8px;
     justify-content: center;
     align-items: center;
+    padding: 10px 0;
 }
 
 .star {
@@ -243,8 +391,14 @@ html {
     background-size: cover;
     background-position: center;
     display: flex;
-    cursor: pointer; /*MOD 1*/
+    cursor: pointer;
+    transition: all 0.3s;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
+
+    .star:hover {
+        transform: scale(1.2);
+    }
 
 .star2 {
     flex: 0 1 30px;
@@ -253,6 +407,7 @@ html {
     background-size: cover;
     background-position: center;
     display: flex;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
 #head_stars {
@@ -260,11 +415,12 @@ html {
     min-width: fit-content;
     display: flex;
     flex-wrap: nowrap;
-    gap: 20px;
+    gap: 8px;
     justify-content: center;
     align-items: center;
 }
 
+/* Edit Bar - Modernizado */
 #editbar {
     flex: 5;
     font-size: 15px;
@@ -273,13 +429,15 @@ html {
     display: flex;
     padding: 0 0 0 10px;
     min-width: fit-content;
+    color: white;
+    font-weight: 500;
 }
 
 .editbarbut {
-    padding: 5px;
+    padding: 10px 20px;
     border-radius: 10px;
-    background-color: #9D622E;
-    height: 25px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    height: auto;
     font-weight: bold;
     text-align: center;
     display: flex;
@@ -287,40 +445,87 @@ html {
     align-items: center;
     min-width: fit-content;
     flex: 1;
-    font-size: 15px;
-    cursor: pointer; /*MOD 1*/
+    font-size: 14px;
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/*
-    TITULO DE LA MODIFICACION: CONTENEDORES PARA LA EDICION DE LA HISTORIA (CSS)
-    NUMERO DE MODIFICACION: 1
-    AUTOR: ADRIEL HERRERA
-    FECHA DE CREACION: 12/10/2025
+    .editbarbut:hover {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
 
-    DESCRIPCION: Esta nueva actualizacion se va a centrar en crear las clases
-    para la instancia de divs, como cuando alguien va a escribir una nueva parte
-    de la historia o va agregar una nueva etiqueta.
+    .editbarbut:active {
+        transform: translateY(0);
+    }
 
-*/
+/* Category Select - Modernizado */
+.tu-clase-para-selects,
+#story_category_id {
+    background-color: #4a3426;
+    color: #e0d4c7;
+    border: 1px solid #6b4c37;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 100%;
+    margin-top: 5px;
+}
 
+    .tu-clase-para-selects:hover,
+    #story_category_id:hover {
+        border-color: #d4761a;
+        background-color: #5a4336;
+    }
+
+    .tu-clase-para-selects:focus,
+    #story_category_id:focus {
+        outline: none;
+        border-color: #d4761a;
+        box-shadow: 0 0 0 2px rgba(212, 118, 26, 0.2);
+    }
+
+/* Fragment Styles - Mejorado */
 .history_fragment {
     color: black;
     width: 100%;
     height: fit-content;
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     border-left: solid 4px black;
     flex: 1;
     max-height: fit-content;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    padding: 8px;
+    border-radius: 8px;
 }
+
+    .history_fragment:hover {
+        background-color: rgba(0, 0, 0, 0.03);
+        transform: translateX(5px);
+    }
+
+    .history_fragment.selected {
+        box-shadow: 0 0 0 3px #d4761a inset;
+        background-color: rgba(212, 118, 26, 0.08);
+    }
 
 .frag_user {
     width: fit-content;
     height: fit-content;
     font-size: 12px;
     margin-left: 4px;
+    margin-bottom: 4px;
     font-weight: bold;
+    opacity: 0.8;
 }
 
 .frag_text {
@@ -335,26 +540,79 @@ html {
     width: 100%;
     text-align: justify;
     color: black;
+    line-height: 1.6;
 }
 
-p{
+p {
     font-size: 15px;
 }
 
-.history_fragment {
-    cursor: pointer; /* Obliga a que salga la manita */
-    transition: all 0.2s ease;
-    position: relative; /* Importante para el borde */
+/* Responsive Design */
+@media (max-width: 1024px) {
+    #body_edit {
+        flex-direction: column;
+        overflow-y: auto; /* Se añadió overflow-y: auto; */
+    }
+
+    #info_edit {
+        max-width: 100%;
+        order: 2;
+        max-height: 300px; /* Se añadió max-height para el panel de información */
+    }
+
+    #text_edit {
+        max-width: 100%;
+        order: 1;
+    }
 }
 
-    /* Estilo cuando está seleccionado */
-    .history_fragment.selected {
-        box-shadow: 0 0 0 3px #000 inset; /* Borde interno negro grueso */
-        background-color: rgba(255, 255, 0, 0.1); /* Fondo amarillo muy tenue */
+@media (max-width: 768px) {
+    #main_div_edit {
+        padding: 10px;
     }
 
-    /* Efecto al pasar el mouse por encima (Hover) */
-    .history_fragment:hover {
-        opacity: 0.9;
-        background-color: rgba(0,0,0,0.05);
+    #title_edit {
+        font-size: 24px;
     }
+
+    #header_options_edit {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #type_edit {
+        flex-direction: column;
+    }
+
+    #input_story {
+        flex-basis: 100%;
+    }
+
+    #buttons_ia_edit {
+        flex-direction: row;
+        width: 100%;
+        flex-basis: 100%;
+    }
+
+    .buttons_ia {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+/* Animation for loading */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.history_fragment {
+    animation: fadeIn 0.3s ease-in-out;
+}

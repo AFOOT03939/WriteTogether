@@ -1,4 +1,4 @@
-﻿const GEMINI_API_KEY = "AIzaSyCe7y4gpV7eXTNlRUDK5BfbGAqDOiwNhOM"; 
+﻿const GEMINI_API_KEY = "micadena"; 
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
 
 async function callGeminiAPI(prompt, isJsonMode = false) {
