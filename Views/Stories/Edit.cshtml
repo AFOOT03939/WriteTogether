@@ -33,7 +33,7 @@
     <head>
         <link rel="stylesheet" href="~/css/Edit.css" />
     </head>
-    <body>
+    <body onload="mostrarCali()">
         <!--ESTE DIV CONTIENE TODO LO DEMAS-->
         <input type="hidden" id="story_id" value="@(Model?.IdSt ?? 0)" />
 
@@ -51,11 +51,11 @@
                 <div id="header_options_edit">
                     <div id="editbar">Status: in progress</div>
                     <div id="head_stars" >
-                        <div class="star2"></div>
-                        <div class="star2"></div>
-                        <div class="star2"></div>
-                        <div class="star2"></div>
-                        <div class="star2"></div>
+                        <div class="star2" id="star21"></div>
+                        <div class="star2" id="star22"></div>
+                        <div class="star2" id="star23"></div>
+                        <div class="star2" id="star24"></div>
+                        <div class="star2" id="star25"></div>
                     </div>
 
                     @if(Model?.AutorSt == userIdSafe)
@@ -228,6 +228,7 @@
 
 <script>
     var currentUserName = "@userName";
+    var rate = @Model.RateSt;
     var selectedFragmentElement = null; // Variable para almacenar el fragmento seleccionado
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -575,17 +576,50 @@
         return colores[generarRandom(0, colores.length)];
     }
 
-    function mandarRating(cal){
+        async function mandarRating(cal){
+        const storyId = parseInt(document.getElementById("story_id").value);
+
+        // Pintar visualmente
         for (let i = 1; i <= 5; i++){
-            if(i <= cal){
-                let star = document.getElementById("star"+i);
+            const star = document.getElementById("star" + i);
+            if (i <= cal) {
                 star.style.backgroundImage = "url('/Images/star.png')";
             } else {
-                let star = document.getElementById("star"+i);
                 star.style.backgroundImage = "url('/Images/notstar.png')";
             }
         }
+
+        // Enviar al backend
+        const data = {
+            StoryId: storyId,
+            Rating: cal
+        };
+
+        try {
+            const response = await fetch("/Stories/RateStory", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                alert("Calificación registrada. Nuevo promedio: " + result.newRating.toFixed(2));
+                rate = result.newRating.toFixed(2);
+                mostrarCali();
+                //window.location.href = window.location.href;
+
+            } else {
+                alert("Error al guardar rating: " + result.message);
+            }
+
+        } catch (err) {
+            console.error(err);
+            alert("Error de red al enviar rating.");
+        }
     }
+
 
         async function saveTags() {
         const storyId = parseInt(document.getElementById("story_id").value, 10);
@@ -614,6 +648,17 @@
 
     document.getElementById("save_tags_btn").addEventListener("click", saveTags);
 
+    function mostrarCali(){
+
+        for (let i = 1; i <= 5; i++){
+            const star = document.getElementById("star2" + i);
+            if (i <= rate) {
+                star.style.backgroundImage = "url('/Images/star.png')";
+            } else {
+                star.style.backgroundImage = "url('/Images/notstar.png')";
+            }
+        }
+    }
 
 
 </script>

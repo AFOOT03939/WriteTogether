@@ -163,6 +163,35 @@ namespace WriteTogether.Controllers
             public List<int> TagIds { get; set; }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> RateStory([FromBody] RateStoryDTO dto)
+        {
+            var story = await _context.Stories.FindAsync(dto.StoryId);
+
+            if (story == null)
+                return NotFound(new { message = "Story not found" });
+
+            // si la historia nunca ha sido calificada
+            if (story.RateSt == null || story.RateSt == 0)
+                story.RateSt = dto.Rating;
+            else
+                story.RateSt = Convert.ToInt32((story.RateSt + dto.Rating) / 2.0);
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new
+            {
+                message = "Rating saved",
+                newRating = story.RateSt
+            });
+        }
+
+        public class RateStoryDTO
+        {
+            public int StoryId { get; set; }
+            public int Rating { get; set; }
+        }
+
 
 
 
